@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { firestore } from '../../firebase/config';
 
-import UsersItem from '../UsersItem';
+import UsersItem from '../../components/user/UsersItem';
 
 const Users = () => {
   const [firebaseRes, setFirebaseRes] = useState([]);
@@ -43,7 +43,13 @@ const Users = () => {
             <h1>Users</h1>
           </div>
         </div>
-        <hr />
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <hr />
+            </div>
+          </div>
+        </div>
         <div className="row">
           {firebaseRes && (
             firebaseRes.map(item => {

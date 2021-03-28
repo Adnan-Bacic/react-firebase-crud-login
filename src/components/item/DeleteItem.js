@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { firestore, auth } from '../firebase/config';
+import { firestore, auth } from '../../firebase/config';
 
 const DeleteItem = ({ id, createdBy }) => {
 

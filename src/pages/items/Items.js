@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { firestore } from '../../firebase/config';
 //import { Link } from 'react-router-dom';
 
-import Items from '../Items';
-import AddItem from '../AddItem';
+import Item from '../../components/item/Item';
+import AddItem from '../../components/item/AddItem';
 //import DeleteItem from '../DeleteItem';
 
-const Index = () => {
+const Items = () => {
   const [firebaseRes, setFirebaseRes] = useState([]);
   const [noDataMsg, setNoDataMsg] = useState('');
   //const [firebaseRealTime, setFirebaseRealTime] = useState([])
@@ -56,50 +56,39 @@ const Index = () => {
 
   return(
     <>
+      <AddItem />
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h1>React Firebase</h1>
-          </div>
-          <div className="col-12 mb-3">
-            <AddItem />
+            <hr />
           </div>
         </div>
-        <hr />
+      </div>
+      <div className="container">
         <div className="row">
           {firebaseRes && (
             firebaseRes.map(item => {
               return(
-                <Items
+                <Item
                   key={item.id}
                   id={item.id}
                   title={item.title}
                   subtitle={item.subtitle}
                   createdBy={item.createdBy}
                 />
-              /*
-                <div className="card col-3 mx-3 mb-3" key={item.id}>
-                  <div className="card-body">
-                    <h5 className="card-title">{item.title}</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">{item.subtitle}</h6>
-                    <Link to={`/edit/${item.id}`}>Edit</Link>
-                    <hr />
-                    <DeleteItem id={item.id} />
-                  </div>
-                </div>
-                */
               );
             })
           )}
-          <div className="col-12">
-            {noDataMsg && (
-              <p>{noDataMsg}</p>
-            )}
-          </div>
         </div>
+      </div>
+      
+      <div className="col-12">
+        {noDataMsg && (
+          <p>{noDataMsg}</p>
+        )}
       </div>
     </>
   );
 };
 
-export default Index;
+export default Items;

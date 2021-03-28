@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const Items = ({ id, name, email }) => {
+const UsersItem = ({ id, name, email }) => {
   return(
     <>
       <div className="card col-lg-3 col-sm-12 mx-3 mb-3" key={id}>
@@ -21,10 +21,10 @@ const Items = ({ id, name, email }) => {
   );
 };
 
-Items.propTypes  = {
+UsersItem.propTypes  = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired
 };
 
-export default Items;
+export default UsersItem;

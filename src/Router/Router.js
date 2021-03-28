@@ -1,21 +1,21 @@
 import React from 'react';
 import { BrowserRouter as RouterContainer, Switch, Route } from 'react-router-dom';
 
-import Index from './pages/Index';
-import EditItem from '../components/EditItem';
-import UsersItem from '../components/UsersItem';
+import Index from '../pages/Index';
+import EditItem from '../components/item/EditItem';
+import UsersItem from '../components/user/UsersItem';
 
-import About from './pages/About';
-import Profile from './pages/Profile';
-import NotFound from './pages/NotFound';
-import Users from './pages/Users';
-import ItemsByUser from './pages/ItemsByUser';
+import About from '../pages/static/About';
+import Profile from '../pages/user/Profile';
+import NotFound from '../pages/static/NotFound';
+import Users from '../pages/user/Users';
+import ItemsByUser from '../pages/items/ItemsByUser';
 
-import Register from './pages/Register';
-import Login from './pages/Login';
+import Register from '../pages/auth/Register';
+import Login from '../pages/auth/Login';
 
-import Navbar from './includes/Navbar';
-import Footer from './includes/Footer';
+import Navbar from '../includes/Navbar';
+import Footer from '../includes/Footer';
 
 const Router = () => {
   return (

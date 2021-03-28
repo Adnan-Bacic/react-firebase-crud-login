@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { firestore, auth } from '../firebase/config';
+import { firestore, auth } from '../../firebase/config';
 import { Link } from 'react-router-dom';
 
-const Item = ({ match }) => {
+const EditItem = ({ match }) => {
 
   const [specificItem, setSpecificItem] = useState({
     title: '',
@@ -135,8 +135,8 @@ const Item = ({ match }) => {
   );
 };
 
-Item.propTypes = {
+EditItem.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-export default Item;
+export default EditItem;
