@@ -9,10 +9,10 @@ const firebaseConfig = {
   projectId: 'react-firebase-crud-login',
   storageBucket: 'react-firebase-crud-login.appspot.com',
   messagingSenderId: '888882216147',
-  appId: '1:888882216147:web:a92f554cf1624cce616826'
+  appId: '1:888882216147:web:a92f554cf1624cce616826',
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-export const firestore = firebase.firestore;
-export const auth = firebase.auth;
+export const { firestore } = firebase;
+export const { auth } = firebase;

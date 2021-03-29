@@ -2,48 +2,46 @@ import React, { useState } from 'react';
 import { auth, firestore } from '../../firebase/config';
 
 const Register = () => {
-
   const [userInfo, setUserInfo] = useState({
     name: '',
     email: '',
-    password: ''
+    password: '',
   });
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState(null);
 
   const onChangeHandler = (e) => {
-    //console.log(userInfo);
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
+    // console.log(userInfo);
+    const { target } = e;
+    const { value } = target;
+    const { name } = target;
 
     setUserInfo({
       ...userInfo,
-      [name]: value
+      [name]: value,
     });
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try{
-      //auth
+    try {
+      // auth
       await auth().createUserWithEmailAndPassword(userInfo.email, userInfo.password);
-      setFeedback('');
-      //console.log('current user:', auth.currentUser);
+      // console.log('current user:', auth.currentUser);
 
-      //firestore, set specific id equal to current user
+      // firestore, set specific id equal to current user
       await firestore().collection('users').doc(auth().currentUser.uid).set({
         email: userInfo.email,
-        name: userInfo.name
+        name: userInfo.name,
       });
-    }
-    catch(err){
-      console.error('err:', err);
+
+      window.location.reload();
+    } catch (err) {
       setFeedback(err.message);
     }
   };
 
-  return(
+  return (
     <>
       <div className="container">
         <div className="row">
@@ -51,7 +49,7 @@ const Register = () => {
             <h1>Register</h1>
             <form onSubmit={submitHandler}>
               <div className="form-group">
-                <label htmlFor="Name">Name</label>
+                <label htmlFor="name">Name</label>
                 <input type="text" name="name" onChange={onChangeHandler} className="form-control" id="name" />
               </div>
               <div className="form-group">
@@ -62,7 +60,9 @@ const Register = () => {
                 <label htmlFor="password">Password</label>
                 <input type="password" name="password" onChange={onChangeHandler} className="form-control" id="password" />
               </div>
-              <p className="text-danger font-weight-bold">{feedback}</p>
+              {feedback && (
+                <p className="text-danger font-weight-bold">{feedback}</p>
+              )}
               <button type="submit" className="btn btn-primary">Register</button>
             </form>
           </div>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const UsersItem = ({ id, name, email }) => {
-  return(
+  return (
     <>
       <div className="card col-lg-3 col-sm-12 mx-3 mb-3" key={id}>
         <div className="card-body">
@@ -12,19 +12,21 @@ const UsersItem = ({ id, name, email }) => {
           <Link
             to={{
               pathname: `/items-by-user/${email}`,
-              state: { id: id }
+              state: { id },
             }}
-          >See items by this user</Link>
+          >
+            See items by this user
+          </Link>
         </div>
       </div>
     </>
   );
 };
 
-UsersItem.propTypes  = {
+UsersItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired
+  email: PropTypes.string.isRequired,
 };
 
 export default UsersItem;

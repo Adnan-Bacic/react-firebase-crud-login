@@ -2,40 +2,36 @@ import React, { useState } from 'react';
 import { auth } from '../../firebase/config';
 
 const Login = () => {
-
   const [userInfo, setUserInfo] = useState({
     email: '',
-    password: ''
+    password: '',
   });
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState(null);
 
   const onChangeHandler = (e) => {
-    //console.log(userInfo);
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
+    // console.log(userInfo);
+    const { target } = e;
+    const { value } = target;
+    const { name } = target;
 
     setUserInfo({
       ...userInfo,
-      [name]: value
+      [name]: value,
     });
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try{
+    try {
       await auth().signInWithEmailAndPassword(userInfo.email, userInfo.password);
-      setFeedback('');
-      //console.log('current user:', auth.currentUser);
-    }
-    catch(err){
-      console.error('err:', err);
+      window.location.reload();
+    } catch (err) {
       setFeedback(err.message);
     }
   };
 
-  return(
+  return (
     <>
       <div className="container">
         <div className="row">
@@ -50,7 +46,9 @@ const Login = () => {
                 <label htmlFor="password">Password</label>
                 <input type="password" name="password" onChange={onChangeHandler} className="form-control" id="password" />
               </div>
-              <p className="text-danger font-weight-bold">{feedback}</p>
+              {feedback && (
+                <p className="text-danger font-weight-bold">{feedback}</p>
+              )}
               <button type="submit" className="btn btn-primary">Login</button>
             </form>
           </div>

@@ -2,53 +2,68 @@ import React, { useEffect, useState } from 'react';
 import { auth, firestore } from '../../firebase/config';
 
 const Profile = () => {
+  const [userData, setUserData] = useState(null);
+  const [noDataMsg, setNoDataMsg] = useState(null);
 
-  const [userData, setUserData] = useState({});
-  const [noDataMsg, setNoDataMsg] = useState('');
-
-  //TODO: ERROR WHEN RELOADING
+  // TODO: ERROR WHEN RELOADING
   useEffect(() => {
+    const getCurrentUser = async () => {
+      try {
+        // if people go to the url manually auth().currentUser is null
+        const userId = auth()?.currentUser?.uid;
 
-    //if people go to the url manually auth().currentUser is null
-    //so just replace it with anything really. any string value just so we can handle errors
-    const userId = auth()?.currentUser?.uid || Math.random().toString();
+        if (!userId) {
+          throw new Error('Invalid query');
+        }
 
-    try{
-      const getCurrentUser = async () => {
-        console.log('profile au', auth()?.currentUser);
         const doc = await firestore().collection('users').doc(userId).get();
     
-        if(doc?.exists){
-          console.log('profile', doc.data());
-          setUserData(doc.data());
-        } else {
-          console.log('no profile');
-          setNoDataMsg('You are not logged ind');
+        if (!doc.exists) {
+          throw new Error('No user info');
         }
-      };
-      getCurrentUser();
-    }
-    catch(err){
-      console.log(err);
-    }
+
+        setUserData(doc.data());
+      } catch (err) {
+        setNoDataMsg(err);
+      }
+    };
+
+    getCurrentUser();
   }, []);
 
-  return(
+  return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <h1>Profile</h1>
-            <p>Name: {userData.name}</p>
-            <p>Email: {userData.email}</p>
+      {userData && (
+        <>
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <h1>Profile</h1>
+                <p>
+                  Name:
+                  {userData.name}
+                </p>
+                <p>
+                  Email:
+                  {userData.email}
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="col-12">
-            {noDataMsg && (
-              <p>{noDataMsg}</p>
-            )}
+        </>
+      )}
+      {noDataMsg && (
+        <>
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <h2>{noDataMsg.name}</h2>
+                <p>{noDataMsg.message}</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const About = () => {
-  return(
+  return (
     <>
       <div className="container">
         <div className="row">

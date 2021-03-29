@@ -3,10 +3,7 @@ module.exports = {
 		'browser': true,
 		'es2021': true
 	},
-	'extends': [
-		'eslint:recommended',
-		'plugin:react/recommended'
-	],
+	'extends': ['airbnb', 'airbnb/hooks', 'plugin:react-hooks/recommended'],
 	'parserOptions': {
 		'ecmaFeatures': {
 			'jsx': true
@@ -15,7 +12,8 @@ module.exports = {
 		'sourceType': 'module'
 	},
 	'plugins': [
-		'react'
+		'react',
+		'react-hooks',
 	],
 	'rules': {
 		'arrow-body-style': ['error', 'always'],
@@ -29,6 +27,13 @@ module.exports = {
 		'indent': ['warn', 2],
 		'linebreak-style': ['warn', 'windows'],
 		'quotes': ['warn', 'single'],
-		'semi': ['warn', 'always']
+		'semi': ['warn', 'always'],
+		'react/jsx-filename-extension': 'off',
+		'react/forbid-prop-types': 'off',
+		'max-len': 'off',
+		'jsx-a11y/label-has-associated-control': 'off',
+		'react/jsx-indent': ['warn'],
+		'spaced-comment': ['warn'],
+		'react/jsx-closing-tag-location': ['warn']
 	}
 };

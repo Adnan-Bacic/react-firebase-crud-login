@@ -4,56 +4,57 @@ import { firestore } from '../../firebase/config';
 import UsersItem from '../../components/user/UsersItem';
 
 const Users = () => {
-  const [firebaseRes, setFirebaseRes] = useState([]);
-  const [noDataMsg, setNoDataMsg] = useState('');
+  const [firebaseRes, setFirebaseRes] = useState(null);
+  const [noDataMsg, setNoDataMsg] = useState(null);
 
   useEffect(() => {
     const getFirebaseData = async () => {
-      try{
+      try {
         const ref = firestore().collection('users');
   
-        let arr = [];
+        const arr = [];
 
         const data = await ref.get();
-        if(!data.empty){
-          data.forEach(doc => {
-            //console.log('doc.data()', doc.data());
-            const result = doc.data();
-            result.id = doc.id;
-            arr.push(result);
-          });
-          setFirebaseRes(arr);
-        } else {
-          setNoDataMsg('No users in the database');
+
+        if (data.empty) {
+          throw new Error('No users');
         }
-      }
-      catch(err){
-        console.error('err', err);
+
+        data.forEach((doc) => {
+          // console.log('doc.data()', doc.data());
+          const result = doc.data();
+          result.id = doc.id;
+          arr.push(result);
+        });
+        
+        setFirebaseRes(arr);
+      } catch (err) {
+        setNoDataMsg(err);
       }
     };
 
     getFirebaseData();
   }, []);
 
-  return(
+  return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <h1>Users</h1>
-          </div>
-        </div>
+      {firebaseRes && (
         <div className="container">
           <div className="row">
             <div className="col-12">
-              <hr />
+              <h1>Users</h1>
             </div>
           </div>
-        </div>
-        <div className="row">
-          {firebaseRes && (
-            firebaseRes.map(item => {
-              return(
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            {firebaseRes.map((item) => {
+              return (
                 <UsersItem
                   key={item.id}
                   id={item.id}
@@ -61,15 +62,22 @@ const Users = () => {
                   email={item.email}
                 />
               );
-            })
-          )}
-          <div className="col-12">
-            {noDataMsg && (
-              <p>{noDataMsg}</p>
-            )}
+            })}
           </div>
         </div>
-      </div>
+      )}
+      {noDataMsg && (
+        <>
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <h2>{noDataMsg.name}</h2>
+                <p>{noDataMsg.message}</p>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

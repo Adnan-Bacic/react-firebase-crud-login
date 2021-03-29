@@ -1,10 +1,10 @@
 import React from 'react';
 
 const Footer = () => {
-  return(
+  return (
     <>
       <footer className="bg-dark text-light pt-3 pb-3 mt-3 text-center">
-          React Firebase
+        React Firebase
       </footer>
     </>
   );

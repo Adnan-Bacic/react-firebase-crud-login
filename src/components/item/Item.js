@@ -1,13 +1,15 @@
 import React from 'react';
-import { auth } from '../../firebase/config';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
+import { auth } from '../../firebase/config';
 
 import DeleteItem from './DeleteItem';
 
-const Item = ({ id, title, subtitle, createdBy }) => {
-  return(
+const Item = ({
+  id, title, subtitle, createdBy,
+}) => {
+  return (
     <>
       <div className="card col-lg-3 col-sm-12 mx-3 mb-3" key={id}>
         <div className="card-body">
@@ -25,7 +27,7 @@ const Item = ({ id, title, subtitle, createdBy }) => {
   );
 };
 
-Item.propTypes  = {
+Item.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,

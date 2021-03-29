@@ -1,9 +1,9 @@
 import React from 'react';
-import Intro from '../pages/static/Intro';
-import Items from '../pages/items/Items';
+import Intro from './static/Intro';
+import Items from './items/Items';
 
 const Index = () => {
-  return(
+  return (
     <>
       <Intro />
       <Items />
