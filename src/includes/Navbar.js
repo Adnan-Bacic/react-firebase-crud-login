@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../firebase/config';
 
 const Navbar = () => {
-  const [loggedInUser, setLoggedInUser] = useState({});
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
     const checkUserAuthState = () => {

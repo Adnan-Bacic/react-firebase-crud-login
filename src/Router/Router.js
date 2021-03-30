@@ -1,40 +1,28 @@
 import React from 'react';
 import { BrowserRouter as RouterContainer, Switch, Route } from 'react-router-dom';
 
-import Index from '../pages/Index';
-import EditItem from '../components/item/EditItem';
-import UsersItem from '../components/user/UsersItem';
+import * as Pages from '../pages';
 
-import About from '../pages/static/About';
-import Profile from '../pages/user/Profile';
-import NotFound from '../pages/static/NotFound';
-import Users from '../pages/user/Users';
-import ItemsByUser from '../pages/items/ItemsByUser';
-
-import Register from '../pages/auth/Register';
-import Login from '../pages/auth/Login';
-
-import Navbar from '../includes/Navbar';
-import Footer from '../includes/Footer';
+import * as Includes from '../includes';
 
 const Router = () => {
   return (
     <>
       <RouterContainer basename="/folders/react/react-firebase-crud-login/">
-        <Navbar />
+        <Includes.Navbar />
         <Switch>
-          <Route exact path="/" component={Index} />
-          <Route path="/edit/:id" component={EditItem} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/profile" component={Profile} />
-          <Route exact path="/users" component={Users} />
-          <Route path="/user/:id" component={UsersItem} />
-          <Route path="/items-by-user/:email" component={ItemsByUser} />
-          <Route path="*" component={NotFound} />
+          <Route exact path="/" component={Pages.StartPage} />
+          <Route path="/edit/:id" component={Pages.EditItem} />
+          <Route exact path="/register" component={Pages.Register} />
+          <Route exact path="/login" component={Pages.Login} />
+          <Route exact path="/about" component={Pages.About} />
+          <Route exact path="/profile" component={Pages.Profile} />
+          <Route exact path="/users" component={Pages.Users} />
+          <Route path="/user/:id" component={Pages.UsersItem} />
+          <Route path="/items-by-user/:email" component={Pages.ItemsByUser} />
+          <Route path="*" component={Pages.NotFound} />
         </Switch>
-        <Footer />
+        <Includes.Footer />
       </RouterContainer>
     </>
   );

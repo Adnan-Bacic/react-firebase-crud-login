@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import * as functions from '../../redux/functions';
+import { Spinner, LineContainer } from '../../components';
+
 import { firestore } from '../../firebase/config';
 
 const ItemsByUser = ({ match, location }) => {
   const [itemsByUser, setItemsByUser] = useState(null);
   const [noDataMsg, setNoDataMsg] = useState(null);
 
+  const isLoading = useSelector((state) => { return state.isLoading; });
+
   useEffect(() => {
     // console.log(match)
     // console.log('param(state) of user', location.state);
 
     const getItemsByUser = async () => {
+      functions.isLoading.setIsLoading(true);
+
       try {
         // if people change the url manually then location.state.id is undefined. and undefined values cannot be use in firebase queries.
         const userId = location?.state?.id;
@@ -48,6 +56,8 @@ const ItemsByUser = ({ match, location }) => {
       } catch (err) {
         setNoDataMsg(err);
       }
+
+      functions.isLoading.setIsLoading(false);
     };
     
     getItemsByUser();
@@ -55,13 +65,20 @@ const ItemsByUser = ({ match, location }) => {
 
   return (
     <>
+      <div className="container">
+        <div className="row">
+          <h1 className="col-12">
+            {`Items by ${match.params.email}`}
+          </h1>
+        </div>
+      </div>
+      <LineContainer />
+      {isLoading.isLoadingState && (
+        <Spinner />
+      )}
       {itemsByUser && (
         <div className="container">
           <div className="row">
-            <h1 className="col-12">
-              Items by
-              {match.params.email}
-            </h1>
             {itemsByUser.map((item) => {
               return (
 

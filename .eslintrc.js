@@ -1,39 +1,41 @@
 module.exports = {
-	'env': {
-		'browser': true,
-		'es2021': true
-	},
-	'extends': ['airbnb', 'airbnb/hooks', 'plugin:react-hooks/recommended'],
-	'parserOptions': {
-		'ecmaFeatures': {
-			'jsx': true
-		},
-		'ecmaVersion': 12,
-		'sourceType': 'module'
-	},
-	'plugins': [
-		'react',
-		'react-hooks',
-	],
-	'rules': {
-		'arrow-body-style': ['error', 'always'],
-		'implicit-arrow-linebreak': ['error', 'below'],
-		'react/prop-types': ['warn'],
-		'react/require-default-props': ['warn'],
-		'react/self-closing-comp': ['warn'],
-		'no-unused-vars': ['warn'],
-		'no-multiple-empty-lines': ['warn', { max: 1, maxEOF: 0 }],
-		'no-trailing-spaces': ['warn', { skipBlankLines: true }],
-		'indent': ['warn', 2],
-		'linebreak-style': ['warn', 'windows'],
-		'quotes': ['warn', 'single'],
-		'semi': ['warn', 'always'],
-		'react/jsx-filename-extension': 'off',
-		'react/forbid-prop-types': 'off',
-		'max-len': 'off',
-		'jsx-a11y/label-has-associated-control': 'off',
-		'react/jsx-indent': ['warn'],
-		'spaced-comment': ['warn'],
-		'react/jsx-closing-tag-location': ['warn']
-	}
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: ['airbnb', 'airbnb/hooks', 'plugin:react-hooks/recommended'],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 12,
+    sourceType: 'module',
+  },
+  plugins: [
+    'react',
+    'react-hooks',
+  ],
+  rules: {
+    'arrow-body-style': ['error', 'always'],
+    'implicit-arrow-linebreak': ['error', 'below'],
+    'react/prop-types': ['warn'],
+    'react/require-default-props': ['warn'],
+    'react/self-closing-comp': ['warn'],
+    'no-unused-vars': ['warn'],
+    'no-multiple-empty-lines': ['warn', { max: 1, maxEOF: 0 }],
+    'no-trailing-spaces': ['warn', { skipBlankLines: true }],
+    indent: ['warn', 2],
+    'linebreak-style': ['warn', 'windows'],
+    quotes: ['warn', 'single'],
+    semi: ['warn', 'always'],
+    'react/jsx-filename-extension': 'off',
+    'react/forbid-prop-types': 'off',
+    'max-len': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'react/jsx-indent': ['warn'],
+    'spaced-comment': ['warn'],
+    'react/jsx-closing-tag-location': ['warn'],
+    'import/prefer-default-export': 'off',
+    'react/button-has-type': 'off',
+  },
 };

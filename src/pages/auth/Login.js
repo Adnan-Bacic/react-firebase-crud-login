@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { auth } from '../../firebase/config';
 
 const Login = () => {
-  const [userInfo, setUserInfo] = useState({
-    email: '',
-    password: '',
-  });
+  const [userInfo, setUserInfo] = useState(null);
   const [feedback, setFeedback] = useState(null);
 
   const onChangeHandler = (e) => {

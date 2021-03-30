@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { auth, firestore } from '../../firebase/config';
+import * as functions from '../../redux/functions';
+import { Spinner, LineContainer } from '../../components';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [noDataMsg, setNoDataMsg] = useState(null);
 
+  const isLoading = useSelector((state) => { return state.isLoading; });
+
   // TODO: ERROR WHEN RELOADING
   useEffect(() => {
     const getCurrentUser = async () => {
+      functions.isLoading.setIsLoading(true);
+
       try {
         // if people go to the url manually auth().currentUser is null
         const userId = auth()?.currentUser?.uid;
@@ -26,6 +33,8 @@ const Profile = () => {
       } catch (err) {
         setNoDataMsg(err);
       }
+
+      functions.isLoading.setIsLoading(false);
     };
 
     getCurrentUser();
@@ -33,19 +42,27 @@ const Profile = () => {
 
   return (
     <>
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <h1>Profile</h1>
+          </div>
+        </div>
+      </div>
+      <LineContainer />
+      {isLoading.isLoadingState && (
+        <Spinner />
+      )}
       {userData && (
         <>
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h1>Profile</h1>
                 <p>
-                  Name:
-                  {userData.name}
+                  {`Name: ${userData.name}`}
                 </p>
                 <p>
-                  Email:
-                  {userData.email}
+                  {`Email: ${userData.email}`}
                 </p>
               </div>
             </div>

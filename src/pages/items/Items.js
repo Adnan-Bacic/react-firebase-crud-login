@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { firestore } from '../../firebase/config';
-// import { Link } from 'react-router-dom';
-
-import Item from '../../components/item/Item';
-import AddItem from '../../components/item/AddItem';
-// import DeleteItem from '../DeleteItem';
+import Item from './Item';
+import AddItem from './AddItem';
+import * as functions from '../../redux/functions';
+import { Spinner, LineContainer } from '../../components';
 
 const Items = () => {
   const [firebaseRes, setFirebaseRes] = useState(null);
   const [noDataMsg, setNoDataMsg] = useState(null);
   // const [firebaseRealTime, setFirebaseRealTime] = useState([])
 
+  const isLoading = useSelector((state) => { return state.isLoading; });
+
   useEffect(() => {
     const getFirebaseData = async () => {
+      functions.isLoading.setIsLoading(true);
+
       try {
         const ref = firestore().collection('items');
   
@@ -50,6 +54,8 @@ const Items = () => {
       } catch (err) {
         setNoDataMsg(err);
       }
+
+      functions.isLoading.setIsLoading(false);
     };
 
     getFirebaseData();
@@ -58,13 +64,10 @@ const Items = () => {
   return (
     <>
       <AddItem />
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <hr />
-          </div>
-        </div>
-      </div>
+      <LineContainer />
+      {isLoading.isLoadingState && (
+        <Spinner />
+      )}
       {firebaseRes && (
         <>
           <div className="container">

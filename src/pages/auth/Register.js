@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { auth, firestore } from '../../firebase/config';
 
 const Register = () => {
-  const [userInfo, setUserInfo] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const [userInfo, setUserInfo] = useState(null);
   const [feedback, setFeedback] = useState(null);
 
   const onChangeHandler = (e) => {

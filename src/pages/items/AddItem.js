@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { auth, firestore } from '../../firebase/config';
+import * as functions from '../../redux/functions';
+import { Spinner } from '../../components';
 
 const AddItem = () => {
-  const [values, setValues] = useState({
-    title: '',
-    subtitle: '',
-    body: '',
-  });
+  const [values, setValues] = useState(null);
 
   const onChangeHandler = (text) => {
     const { value } = text.target;
@@ -15,6 +14,14 @@ const AddItem = () => {
       [text.target.name]: value,
     });
   };
+
+  useEffect(() => {
+    functions.isLoading.setIsLoading(true);
+    
+    functions.isLoading.setIsLoading(false);
+  }, []);
+
+  const isLoading = useSelector((state) => { return state.isLoading; });
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -31,14 +38,17 @@ const AddItem = () => {
 
       window.location.reload();
     } catch (err) {
-      // TODO: ERROR
+      // TODO: ERROR HANDLING
       console.error('err:', err);
     }
   };
 
   return (
     <>
-      {auth().currentUser ? (
+      {isLoading.isLoadingState && !auth().currentUser && (
+        <Spinner />
+      )}
+      {auth().currentUser && (
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -46,15 +56,15 @@ const AddItem = () => {
               <form onSubmit={submitHandler}>
                 <div className="form-group">
                   <label htmlFor="title">Title</label>
-                  <input type="text" name="title" value={values.title} onChange={onChangeHandler} className="form-control" id="title" />
+                  <input type="text" name="title" value={values?.title} onChange={onChangeHandler} className="form-control" id="title" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="subtitle">Subtitle</label>
-                  <input type="text" name="subtitle" value={values.subtitle} onChange={onChangeHandler} className="form-control" id="subtitle" />
+                  <input type="text" name="subtitle" value={values?.subtitle} onChange={onChangeHandler} className="form-control" id="subtitle" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="body">Body</label>
-                  <input type="text" name="body" value={values.body} onChange={onChangeHandler} className="form-control" id="body" />
+                  <input type="text" name="body" value={values?.body} onChange={onChangeHandler} className="form-control" id="body" />
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
               </form>
@@ -62,7 +72,8 @@ const AddItem = () => {
             </div>
           </div>
         </div>
-      ) : (
+      )}
+      {!auth().currentUser && !isLoading.isLoadingState && (
         <>
           <div className="container">
             <div className="row">

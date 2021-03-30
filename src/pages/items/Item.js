@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/config';
-
+import { Line } from '../../components';
 import DeleteItem from './DeleteItem';
 
 const Item = ({
@@ -16,7 +16,7 @@ const Item = ({
           <h5 className="card-title">{title}</h5>
           <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
           <Link to={`/edit/${id}`}>See more</Link>
-          <hr />
+          <Line />
           <p>{createdBy}</p>
           {auth()?.currentUser?.email === createdBy && (
             <DeleteItem id={id} createdBy={createdBy} />

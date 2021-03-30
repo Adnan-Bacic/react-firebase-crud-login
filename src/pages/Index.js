@@ -1,14 +1,25 @@
-import React from 'react';
-import Intro from './static/Intro';
+import Login from './auth/Login';
+import Register from './auth/Register';
+
+import AddItem from './items/AddItem';
+import DeleteItem from './items/DeleteItem';
+import EditItem from './items/EditItem';
+import Item from './items/Item';
 import Items from './items/Items';
+import ItemsByUser from './items/ItemsByUser';
+import StartPage from './items/StartPage';
 
-const Index = () => {
-  return (
-    <>
-      <Intro />
-      <Items />
-    </>
-  );
+import About from './static/About';
+import Intro from './static/Intro';
+import NotFound from './static/NotFound';
+
+import Profile from './user/Profile';
+import Users from './user/Users';
+import UsersItem from './user/UsersItem';
+
+export {
+  Login, Register,
+  Items, ItemsByUser, StartPage, AddItem, DeleteItem, EditItem, Item,
+  About, Intro, NotFound,
+  Profile, Users, UsersItem,
 };
-
-export default Index;

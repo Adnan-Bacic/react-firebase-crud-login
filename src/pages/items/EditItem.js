@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { firestore, auth } from '../../firebase/config';
+import * as functions from '../../redux/functions';
+import { Spinner, Line, LineContainer } from '../../components';
 
 const EditItem = ({ match }) => {
-  const [specificItem, setSpecificItem] = useState({
-    title: '',
-    subtitle: '',
-    body: '',
-    createdBy: '',
-  });
+  const [specificItem, setSpecificItem] = useState(null);
   const [feedback, setFeedback] = useState(null);
+
+  const isLoading = useSelector((state) => { return state.isLoading; });
 
   useEffect(() => {
     // console.log(match)
     const getOneItem = async () => {
+      functions.isLoading.setIsLoading(true);
+
       try {
         const ref = firestore().collection('items').doc(match.params.id);
     
@@ -28,6 +30,8 @@ const EditItem = ({ match }) => {
       } catch (err) {
         setFeedback(err);
       }
+
+      functions.isLoading.setIsLoading(false);
     };
 
     getOneItem();
@@ -69,20 +73,22 @@ const EditItem = ({ match }) => {
 
   return (
     <>
+      {isLoading.isLoadingState && (
+        <Spinner />
+      )}
       {specificItem && (
         <>
           <div className="container">
             <div className="row">
               <div className="col-12 mx-auto">
                 <div className="jumbotron mt-3">
-                  <h1 className="display-4">{specificItem.title}</h1>
-                  <p className="lead">{specificItem.subtitle}</p>
-                  <hr className="my-4" />
-                  <p>{specificItem.body}</p>
-                  <hr />
+                  <h1 className="display-4">{specificItem?.title}</h1>
+                  <p className="lead">{specificItem?.subtitle}</p>
+                  <Line />
+                  <p>{specificItem?.body}</p>
+                  <Line />
                   <p>
-                    Made by:
-                    {specificItem.createdBy}
+                    {`Made by: ${specificItem?.createdBy}`}
                   </p>
                   <p className="lead">
                     <Link to="/">Go back to frontpage</Link>
@@ -91,41 +97,39 @@ const EditItem = ({ match }) => {
               </div>
             </div>
           </div>
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <hr />
-              </div>
+        </>
+      )}
+      <LineContainer />
+          
+      {isLoading.isLoadingState && (
+        <Spinner />
+      )}
+      {auth()?.currentUser?.email === specificItem?.createdBy && (
+        <div className="container">
+          <div className="row">
+            <div className="col-12 mx-auto">
+              <h1>Edit item</h1>
+              <form onSubmit={submitHandler}>
+                <div className="form-group">
+                  <label htmlFor="title">Title</label>
+                  <input type="text" name="title" value={specificItem?.title} onChange={onChangeHandler} className="form-control" id="title" />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="subtitle">Subtitle</label>
+                  <input type="text" name="subtitle" value={specificItem?.subtitle} onChange={onChangeHandler} className="form-control" id="subtitle" />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="body">Body</label>
+                  <input type="text" name="body" value={specificItem?.body} onChange={onChangeHandler} className="form-control" id="body" />
+                </div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+                <p className="lead">
+                  <Link to="/">Go back to frontpage</Link>
+                </p>
+              </form>
             </div>
           </div>
-          {auth()?.currentUser?.email === specificItem.createdBy && (
-            <div className="container">
-              <div className="row">
-                <div className="col-12 mx-auto">
-                  <h1>Edit item</h1>
-                  <form onSubmit={submitHandler}>
-                    <div className="form-group">
-                      <label htmlFor="title">Title</label>
-                      <input type="text" name="title" value={specificItem.title} onChange={onChangeHandler} className="form-control" id="title" />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="subtitle">Subtitle</label>
-                      <input type="text" name="subtitle" value={specificItem.subtitle} onChange={onChangeHandler} className="form-control" id="subtitle" />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="body">Body</label>
-                      <input type="text" name="body" value={specificItem.body} onChange={onChangeHandler} className="form-control" id="body" />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                    <p className="lead">
-                      <Link to="/">Go back to frontpage</Link>
-                    </p>
-                  </form>
-                </div>
-              </div>
-            </div>
-          )}
-        </>
+        </div>
       )}
       {feedback && (
         <div className="container">
