@@ -1,10 +1,12 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../firebase/config';
 
 const Navbar = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const history = useHistory();
 
   useEffect(() => {
     const checkUserAuthState = () => {
@@ -27,6 +29,7 @@ const Navbar = () => {
     try {
       await auth().signOut();
       console.log('current user:', auth.currentUser);
+      history.push('/');
     } catch (err) {
       console.error('err:', err);
     }

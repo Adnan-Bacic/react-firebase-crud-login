@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { auth, firestore } from '../../firebase/config';
 
 const Register = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [feedback, setFeedback] = useState(null);
+
+  const history = useHistory();
 
   const onChangeHandler = (e) => {
     // console.log(userInfo);
@@ -31,7 +34,7 @@ const Register = () => {
         name: userInfo.name,
       });
 
-      window.location.reload();
+      history.push('/');
     } catch (err) {
       setFeedback(err.message);
     }

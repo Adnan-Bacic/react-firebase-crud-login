@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { auth, firestore } from '../../firebase/config';
 import * as functions from '../../redux/functions';
 import { Spinner } from '../../components';
 
 const AddItem = () => {
   const [values, setValues] = useState(null);
+
+  const history = useHistory();
 
   const onChangeHandler = (text) => {
     const { value } = text.target;
@@ -36,7 +39,7 @@ const AddItem = () => {
         createdBy: auth().currentUser.email,
       });
 
-      window.location.reload();
+      history.go(0);
     } catch (err) {
       // TODO: ERROR HANDLING
       console.error('err:', err);

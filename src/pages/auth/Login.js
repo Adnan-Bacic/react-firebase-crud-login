@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase/config';
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [feedback, setFeedback] = useState(null);
+
+  const history = useHistory();
 
   const onChangeHandler = (e) => {
     // console.log(userInfo);
@@ -22,7 +25,8 @@ const Login = () => {
 
     try {
       await auth().signInWithEmailAndPassword(userInfo.email, userInfo.password);
-      window.location.reload();
+
+      history.push('/');
     } catch (err) {
       setFeedback(err.message);
     }

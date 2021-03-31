@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { firestore, auth } from '../../firebase/config';
 
 const DeleteItem = ({ id, createdBy }) => {
   const [feedback, setFeedback] = useState(null);
+
+  const history = useHistory();
 
   const deleteHandler = async (e) => {
     e.preventDefault();
@@ -17,7 +20,7 @@ const DeleteItem = ({ id, createdBy }) => {
     
       await ref.doc(id).delete();
   
-      window.location.reload();
+      history.go(0);
     } catch (err) {
       setFeedback(err);
     }

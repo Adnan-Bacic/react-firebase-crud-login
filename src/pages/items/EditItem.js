@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { firestore, auth } from '../../firebase/config';
 import * as functions from '../../redux/functions';
 import { Spinner, Line, LineContainer } from '../../components';
@@ -11,6 +11,8 @@ const EditItem = ({ match }) => {
   const [feedback, setFeedback] = useState(null);
 
   const isLoading = useSelector((state) => { return state.isLoading; });
+
+  const history = useHistory();
 
   useEffect(() => {
     // console.log(match)
@@ -64,8 +66,8 @@ const EditItem = ({ match }) => {
         body: specificItem.body,
       });
 
-      // TODO: ERROR HERE ONLINE
-      window.location.reload();
+      // history.push(`/edit/${match.params.id}`)
+      history.go(0);
     } catch (err) {
       setFeedback(err);
     }
