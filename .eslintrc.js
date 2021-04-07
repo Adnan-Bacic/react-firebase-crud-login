@@ -37,5 +37,6 @@ module.exports = {
     'react/jsx-closing-tag-location': ['warn'],
     'import/prefer-default-export': 'off',
     'react/button-has-type': 'off',
+    'object-shorthand': 'off',
   },
 };

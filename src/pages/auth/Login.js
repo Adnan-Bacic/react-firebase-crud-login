@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase/config';
+import * as functions from '../../redux/functions';
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -23,13 +24,9 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      await auth().signInWithEmailAndPassword(userInfo.email, userInfo.password);
+    await functions.user.loginuser(userInfo.email, userInfo.password);
 
-      history.push('/');
-    } catch (err) {
-      setFeedback(err.message);
-    }
+    history.push('/');
   };
 
   return (

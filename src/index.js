@@ -7,7 +7,7 @@ import store from './redux/configureStore';
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      {/*
+      
       <button
         type="button"
         onClick={() => {
@@ -16,7 +16,7 @@ ReactDOM.render(
       >
         log redux store
       </button>
-      */}
+      
       <App />
     </React.StrictMode>
   </Provider>,

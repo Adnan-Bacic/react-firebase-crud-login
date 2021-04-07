@@ -1,21 +1,20 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { auth } from '../firebase/config';
+import * as functions from '../redux/functions';
 
 const Navbar = () => {
   const history = useHistory();
 
+  const user = useSelector((state) => { return state.user; });
+  console.log('navbar user', user);
+
   const signOutHandler = async (e) => {
     e.preventDefault();
-
-    try {
-      await auth().signOut();
-      console.log('current user:', auth.currentUser);
-      history.push('/');
-    } catch (err) {
-      console.error('err:', err);
-    }
+    await functions.user.signOutUser();
+    history.push('/');
   };
 
   return (
@@ -30,16 +29,16 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item text-light my-auto mr-2">
-                  {auth().currentUser && (
+                  {user.userData && (
                     <>
-                      {`Email: ${auth().currentUser.email}`}
+                      {`Email: ${user.userData.email}`}
                     </>
                   )}
                 </li>
                 <li className="nav-item">
                   <Link to="/users" className="nav-link text-light">Users</Link>
                 </li>
-                {!auth().currentUser && (
+                {!user.userData && (
                   <>
                     <li className="nav-item">
                       <Link to="/register" className="nav-link text-light">Register</Link>
@@ -52,14 +51,14 @@ const Navbar = () => {
                 <li className="nav-item">
                   <Link to="/about" className="nav-link text-light">About</Link>
                 </li>
-                {auth().currentUser && (
+                {user.userData && (
                   <>
                     <li className="nav-item">
                       <Link to="/profile" className="nav-link text-light">Profile</Link>
                     </li>
                   </>
                 )}
-                {auth().currentUser && (
+                {user.userData && (
                   <>
                     <li className="nav-item text-light my-auto mr-2">
                       <form onSubmit={signOutHandler}>

@@ -1,26 +1,37 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as RouterContainer, Switch, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { auth } from '../firebase/config';
-
+import * as functions from '../redux/functions';
 import * as Pages from '../pages';
-
 import * as Includes from '../includes';
+import * as Components from '../components';
 
 const Router = () => {
   useEffect(() => {
     auth().onAuthStateChanged((user) => {
       if (user) {
         console.log('auth().currentUser', auth().currentUser.email);
+        functions.user.setUserData(auth().currentUser);
       } else {
+        functions.user.signOutUser();
         console.warn('no user');
       }
     });
-  }, []);
+  }, [auth().currentUser]);
+
+  const error = useSelector((state) => { return state.error; });
+  useEffect(() => {
+    // todo?
+  }, [error.errorMessage]);
 
   return (
     <>
       <RouterContainer basename="/folders/react/react-firebase-crud-login/">
         <Includes.Navbar />
+        {error.errorMessage && (
+          <Components.Error />
+        )}
         <Switch>
           <Route exact path="/" component={Pages.StartPage} />
           <Route path="/edit/:id" component={Pages.EditItem} />

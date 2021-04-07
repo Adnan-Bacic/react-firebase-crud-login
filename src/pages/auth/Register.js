@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { auth, firestore } from '../../firebase/config';
+import * as functions from '../../redux/functions';
 
 const Register = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -22,22 +23,9 @@ const Register = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
-    try {
-      // auth
-      await auth().createUserWithEmailAndPassword(userInfo.email, userInfo.password);
-      // console.log('current user:', auth.currentUser);
-
-      // firestore, set specific id equal to current user
-      await firestore().collection('users').doc(auth().currentUser.uid).set({
-        email: userInfo.email,
-        name: userInfo.name,
-      });
-
-      history.push('/');
-    } catch (err) {
-      setFeedback(err.message);
-    }
+    const res = await functions.user.registerUser(userInfo.email, userInfo.password, userInfo.name);
+    console.log(res);
+    // history.push('/');
   };
 
   return (
