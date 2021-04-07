@@ -4,24 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../firebase/config';
 
 const Navbar = () => {
-  const [loggedInUser, setLoggedInUser] = useState(null);
-
   const history = useHistory();
-
-  useEffect(() => {
-    const checkUserAuthState = () => {
-      auth().onAuthStateChanged((user) => {
-        if (user) {
-          console.log('auth().currentUser', auth().currentUser);
-          setLoggedInUser(auth().currentUser);
-        } else {
-          console.warn('no user');
-          setLoggedInUser(null);
-        }
-      });
-    };
-    checkUserAuthState();
-  }, []);
 
   const signOutHandler = async (e) => {
     e.preventDefault();
@@ -47,7 +30,11 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item text-light my-auto mr-2">
-                  {loggedInUser && loggedInUser.email}
+                  {auth().currentUser && (
+                    <>
+                      {`Email: ${auth().currentUser.email}`}
+                    </>
+                  )}
                 </li>
                 <li className="nav-item">
                   <Link to="/users" className="nav-link text-light">Users</Link>

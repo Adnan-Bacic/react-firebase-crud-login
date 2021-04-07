@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as RouterContainer, Switch, Route } from 'react-router-dom';
+import { auth } from '../firebase/config';
 
 import * as Pages from '../pages';
 
 import * as Includes from '../includes';
 
 const Router = () => {
+  useEffect(() => {
+    auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log('auth().currentUser', auth().currentUser.email);
+      } else {
+        console.warn('no user');
+      }
+    });
+  }, []);
+
   return (
     <>
       <RouterContainer basename="/folders/react/react-firebase-crud-login/">
