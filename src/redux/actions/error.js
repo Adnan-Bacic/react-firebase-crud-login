@@ -6,3 +6,9 @@ export const setError = (error) => {
     payloadError: error,
   };
 };
+
+export const clearError = () => {
+  return {
+    type: types.CLEAR_ERROR,
+  };
+};

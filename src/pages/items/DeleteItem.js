@@ -1,29 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import * as functions from '../../redux/functions';
 import { firestore, auth } from '../../firebase/config';
 
 const DeleteItem = ({ id, createdBy }) => {
-  const [feedback, setFeedback] = useState(null);
-
   const history = useHistory();
 
   const deleteHandler = async (e) => {
     e.preventDefault();
-
-    try {
-      if (auth()?.currentUser?.email !== createdBy) {
-        throw new Error('You cannot delete other peoples posts');
-      }
-
-      const ref = firestore().collection('items');
-    
-      await ref.doc(id).delete();
+    await functions.items.deleteItem(id, createdBy);
   
-      history.go(0);
-    } catch (err) {
-      setFeedback(err);
-    }
+    history.go(0);
   };
 
   return (
@@ -31,12 +19,6 @@ const DeleteItem = ({ id, createdBy }) => {
       <form onSubmit={deleteHandler}>
         <button type="submit" className="btn btn-danger">Delete</button>
       </form>
-      {feedback && (
-        <>
-          <h2>{feedback.name}</h2>
-          <p>{feedback.message}</p>
-        </>
-      )}
     </>
   );
 };

@@ -8,9 +8,10 @@ import { Spinner, Line, LineContainer } from '../../components';
 
 const EditItem = ({ match }) => {
   const [specificItem, setSpecificItem] = useState(null);
-  const [feedback, setFeedback] = useState(null);
 
   const isLoading = useSelector((state) => { return state.isLoading; });
+  const items = useSelector((state) => { return state.items; });
+  const user = useSelector((state) => { return state.user; });
 
   const history = useHistory();
 
@@ -19,19 +20,7 @@ const EditItem = ({ match }) => {
     const getOneItem = async () => {
       functions.isLoading.setIsLoading(true);
 
-      try {
-        const ref = firestore().collection('items').doc(match.params.id);
-    
-        const doc = await ref.get();
-  
-        if (!doc.exists) {
-          throw new Error('No item with this id');
-        }
-
-        setSpecificItem(doc.data());
-      } catch (err) {
-        setFeedback(err);
-      }
+      await functions.items.getSingleItem(match.params.id);
 
       functions.isLoading.setIsLoading(false);
     };
@@ -53,24 +42,8 @@ const EditItem = ({ match }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      if (auth()?.currentUser?.email !== specificItem.createdBy) {
-        throw new Error('You cannot edit other peoples posts');
-      }
-
-      const ref = firestore().collection('items').doc(match.params.id);
-
-      await ref.update({
-        title: specificItem.title,
-        subtitle: specificItem.subtitle,
-        body: specificItem.body,
-      });
-
-      // history.push(`/edit/${match.params.id}`)
-      history.go(0);
-    } catch (err) {
-      setFeedback(err);
-    }
+    await functions.items.editItem(match.params.id, specificItem.title, specificItem.subtitle, specificItem.body);
+    history.go(0);
   };
 
   return (
@@ -78,19 +51,19 @@ const EditItem = ({ match }) => {
       {isLoading.isLoadingState && (
         <Spinner />
       )}
-      {specificItem && (
+      {items.singleItem && (
         <>
           <div className="container">
             <div className="row">
               <div className="col-12 mx-auto">
                 <div className="jumbotron mt-3">
-                  <h1 className="display-4">{specificItem?.title}</h1>
-                  <p className="lead">{specificItem?.subtitle}</p>
+                  <h1 className="display-4">{items.singleItem?.title}</h1>
+                  <p className="lead">{items.singleItem?.subtitle}</p>
                   <Line />
-                  <p>{specificItem?.body}</p>
+                  <p>{items.singleItem?.body}</p>
                   <Line />
                   <p>
-                    {`Made by: ${specificItem?.createdBy}`}
+                    {`Made by: ${items.singleItem?.createdBy}`}
                   </p>
                   <p className="lead">
                     <Link to="/">Go back to frontpage</Link>
@@ -106,7 +79,7 @@ const EditItem = ({ match }) => {
       {isLoading.isLoadingState && (
         <Spinner />
       )}
-      {auth()?.currentUser?.email === specificItem?.createdBy && (
+      {user?.userData?.email === items.singleItem?.createdBy && (
         <div className="container">
           <div className="row">
             <div className="col-12 mx-auto">
@@ -129,16 +102,6 @@ const EditItem = ({ match }) => {
                   <Link to="/">Go back to frontpage</Link>
                 </p>
               </form>
-            </div>
-          </div>
-        </div>
-      )}
-      {feedback && (
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <h2>{feedback.name}</h2>
-              <p>{feedback.message}</p>
             </div>
           </div>
         </div>

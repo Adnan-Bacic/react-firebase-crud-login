@@ -34,7 +34,7 @@ const Profile = () => {
         setNoDataMsg(err);
       }
 
-      functions.isLoading.setIsLoading(false);
+      await isLoading.setIsLoading(false);
     };
 
     getCurrentUser();

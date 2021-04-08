@@ -6,3 +6,10 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const SIGNOUT_USER = 'SIGNOUT_USER';
 
 export const SET_ERROR = 'SET_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
+
+export const GET_ALL_ITEMS = 'GET_ALL_ITEMS';
+export const GET_SINGLE_ITEMS = 'GET_SINGLE_ITEMS';
+export const ADD_ITEM = 'ADD_ITEM';
+export const DELETE_ITEM = 'DELETE_ITEM';
+export const EDIT_ITEM = 'EDIT_ITEM';

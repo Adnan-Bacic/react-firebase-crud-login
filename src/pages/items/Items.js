@@ -7,53 +7,14 @@ import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 
 const Items = () => {
-  const [firebaseRes, setFirebaseRes] = useState(null);
-  const [noDataMsg, setNoDataMsg] = useState(null);
-  // const [firebaseRealTime, setFirebaseRealTime] = useState([])
-
   const isLoading = useSelector((state) => { return state.isLoading; });
+  const items = useSelector((state) => { return state.items; });
 
   useEffect(() => {
     const getFirebaseData = async () => {
       functions.isLoading.setIsLoading(true);
 
-      try {
-        const ref = firestore().collection('items');
-  
-        const arr = [];
-
-        const data = await ref.get();
-
-        if (data.empty) {
-          throw new Error('No data to show');
-        }
-
-        data.forEach((doc) => {
-          // console.log('doc.data()', doc.data());
-          const result = doc.data();
-          result.id = doc.id;
-          arr.push(result);
-        });
-
-        setFirebaseRes(arr);
-
-        // realtime
-        /*
-        let arrRealtime = []
-
-        await ref.onSnapshot(snapshot => {
-          snapshot.forEach(doc => {
-            console.log(doc.data())
-            const resultRealtime = doc.data()
-            resultRealtime.id = doc.id
-            arrRealtime.push(resultRealtime)
-          })
-          setFirebaseRealTime(arrRealtime)
-        });
-        */
-      } catch (err) {
-        setNoDataMsg(err);
-      }
+      await functions.items.getAllItems();
 
       functions.isLoading.setIsLoading(false);
     };
@@ -68,11 +29,11 @@ const Items = () => {
       {isLoading.isLoadingState && (
         <Spinner />
       )}
-      {firebaseRes && (
+      {items.firebaseItems && (
         <>
           <div className="container">
             <div className="row">
-              {firebaseRes.map((item) => {
+              {items.firebaseItems.map((item) => {
                 return (
                   <Item
                     key={item.id}
@@ -87,6 +48,7 @@ const Items = () => {
           </div>
         </>
       )}
+      {/*
       {noDataMsg && (
         <>
           <div className="container">
@@ -99,7 +61,7 @@ const Items = () => {
           </div>
         </>
       )}
-      
+      */}
     </>
   );
 };

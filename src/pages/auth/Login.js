@@ -5,7 +5,6 @@ import * as functions from '../../redux/functions';
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState(null);
-  const [feedback, setFeedback] = useState(null);
 
   const history = useHistory();
 
@@ -26,7 +25,7 @@ const Login = () => {
 
     await functions.user.loginuser(userInfo.email, userInfo.password);
 
-    history.push('/');
+    // history.push('/');
   };
 
   return (
@@ -44,9 +43,6 @@ const Login = () => {
                 <label htmlFor="password">Password</label>
                 <input type="password" name="password" onChange={onChangeHandler} className="form-control" id="password" />
               </div>
-              {feedback && (
-                <p className="text-danger font-weight-bold">{feedback}</p>
-              )}
               <button type="submit" className="btn btn-primary">Login</button>
             </form>
           </div>

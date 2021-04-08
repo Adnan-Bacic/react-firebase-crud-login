@@ -5,7 +5,6 @@ import * as functions from '../../redux/functions';
 
 const Register = () => {
   const [userInfo, setUserInfo] = useState(null);
-  const [feedback, setFeedback] = useState(null);
 
   const history = useHistory();
 
@@ -47,9 +46,6 @@ const Register = () => {
                 <label htmlFor="password">Password</label>
                 <input type="password" name="password" onChange={onChangeHandler} className="form-control" id="password" />
               </div>
-              {feedback && (
-                <p className="text-danger font-weight-bold">{feedback}</p>
-              )}
               <button type="submit" className="btn btn-primary">Register</button>
             </form>
           </div>

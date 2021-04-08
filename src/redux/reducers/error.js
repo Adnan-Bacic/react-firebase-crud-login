@@ -12,6 +12,12 @@ export const errorReducer = (state = defaultState, action) => {
       errorMessage: action.payloadError,
     };
 
+  case types.CLEAR_ERROR:
+    return {
+      ...state,
+      errorMessage: null,
+    };
+
   default:
     return {
       ...state,

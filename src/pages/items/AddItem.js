@@ -8,6 +8,8 @@ import { Spinner } from '../../components';
 const AddItem = () => {
   const [values, setValues] = useState(null);
 
+  const user = useSelector((state) => { return state.user; });
+
   const history = useHistory();
 
   const onChangeHandler = (text) => {
@@ -19,31 +21,21 @@ const AddItem = () => {
   };
 
   useEffect(() => {
-    functions.isLoading.setIsLoading(true);
+    const setLoading = async () => {
+      functions.isLoading.setIsLoading(true);
     
-    functions.isLoading.setIsLoading(false);
+      functions.isLoading.setIsLoading(false);
+    };
+
+    setLoading();
   }, []);
 
   const isLoading = useSelector((state) => { return state.isLoading; });
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
-    try {
-      const ref = firestore().collection('items');
-
-      await ref.add({
-        title: values.title,
-        subtitle: values.subtitle,
-        body: values.body,
-        createdBy: auth().currentUser.email,
-      });
-
-      history.go(0);
-    } catch (err) {
-      // TODO: ERROR HANDLING
-      console.error('err:', err);
-    }
+    await functions.items.addItem(values.title, values.subtitle, values.body, auth().currentUser.email);
+    history.go(0);
   };
 
   return (
@@ -51,7 +43,7 @@ const AddItem = () => {
       {isLoading.isLoadingState && !auth().currentUser && (
         <Spinner />
       )}
-      {auth().currentUser && (
+      {user?.userData && (
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -76,7 +68,7 @@ const AddItem = () => {
           </div>
         </div>
       )}
-      {!auth().currentUser && !isLoading.isLoadingState && (
+      {user?.userData && !isLoading.isLoadingState && (
         <>
           <div className="container">
             <div className="row">
