@@ -11,6 +11,7 @@ const About = () => {
             <p>Signed in users can create items</p>
             <p>Users can only edit/delete their own items</p>
             <p>Made with React hooks and async/await syntax</p>
+            <p>Using Redux for global state management</p>
           </div>
         </div>
       </div>
