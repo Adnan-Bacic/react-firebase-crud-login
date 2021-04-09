@@ -46,7 +46,7 @@ const EditItem = ({ match }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const res = await functions.items.editItem(match.params.id, specificItem.title, specificItem.subtitle, specificItem.body);
+    const res = await functions.items.editItem(match.params.id, specificItem.title, specificItem.subtitle, specificItem.body, user.userData.email);
     if (res === true) {
       history.go(0);
     }

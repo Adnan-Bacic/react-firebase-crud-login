@@ -23,7 +23,7 @@ const Error = () => {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <div className="alert alert-info">
+            <div className="alert alert-danger">
               <h2>{error.errorMessage.name}</h2>
               {`${error.errorMessage.code}: ${error.errorMessage.message}`}
             </div>

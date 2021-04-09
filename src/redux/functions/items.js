@@ -88,14 +88,12 @@ export const deleteItem = async (id, createdBy) => {
   }
 };
 
-export const editItem = async (id, title, subtitle, body) => {
+export const editItem = async (id, title, subtitle, body, createdBy) => {
   try {
-    /*
-        if (auth()?.currentUser?.email !== specificItem.createdBy) {
-          throw new Error('You cannot edit other peoples posts');
-        }
-        */
-  
+    if (auth()?.currentUser?.email !== createdBy) {
+      throw new Error('You cannot edit other peoples posts');
+    }
+
     const ref = firestore().collection('items').doc(id);
   
     await ref.update({
