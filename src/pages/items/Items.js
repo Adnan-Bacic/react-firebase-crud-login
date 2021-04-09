@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { firestore } from '../../firebase/config';
 import Item from './Item';
 import AddItem from './AddItem';
 import * as functions from '../../redux/functions';

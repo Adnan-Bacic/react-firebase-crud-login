@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { auth } from '../../firebase/config';
 import * as functions from '../../redux/functions';
 
 const Login = () => {
@@ -23,9 +22,11 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    await functions.user.loginuser(userInfo.email, userInfo.password);
-
-    // history.push('/');
+    const res = await functions.user.loginuser(userInfo.email, userInfo.password);
+    console.log('res', res);
+    if (res === true) {
+      history.push('/');
+    }
   };
 
   return (

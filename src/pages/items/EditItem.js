@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { firestore, auth } from '../../firebase/config';
 import * as functions from '../../redux/functions';
 import { Spinner, Line, LineContainer } from '../../components';
 
@@ -42,8 +41,10 @@ const EditItem = ({ match }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    await functions.items.editItem(match.params.id, specificItem.title, specificItem.subtitle, specificItem.body);
-    history.go(0);
+    const res = await functions.items.editItem(match.params.id, specificItem.title, specificItem.subtitle, specificItem.body);
+    if (res === true) {
+      history.go(0);
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 import store from '../configureStore';
 import * as actions from '../actions';
-import { auth, firestore } from '../../firebase/config';
+import { firestore } from '../../firebase/config';
+import * as errors from './error';
 
 export const getAllItemsByUser = async (id, email) => {
   try {
@@ -37,8 +38,11 @@ export const getAllItemsByUser = async (id, email) => {
     });
 
     store.dispatch(actions.users.getAllItemsByUser(arr));
+
+    return true;
   } catch (err) {
-    console.error(err);
+    errors.setError(err);
+    return err;
   }
 };
 
@@ -62,7 +66,10 @@ export const getAllUsers = async () => {
     });
     
     store.dispatch(actions.users.getAllUsers(arr));
+
+    return true;
   } catch (err) {
-    console.warn(err);
+    errors.setError(err);
+    return err;
   }
 };

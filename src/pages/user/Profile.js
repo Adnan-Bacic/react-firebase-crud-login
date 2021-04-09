@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { auth, firestore } from '../../firebase/config';
 import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 

@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import * as functions from '../../redux/functions';
-import { firestore, auth } from '../../firebase/config';
 
 const DeleteItem = ({ id, createdBy }) => {
   const history = useHistory();
 
   const deleteHandler = async (e) => {
     e.preventDefault();
-    await functions.items.deleteItem(id, createdBy);
+    const res = await functions.items.deleteItem(id, createdBy);
   
-    history.go(0);
+    if (res === true) {
+      history.go(0);
+    }
   };
 
   return (

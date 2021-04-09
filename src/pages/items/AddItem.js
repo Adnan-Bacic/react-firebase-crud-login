@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { auth, firestore } from '../../firebase/config';
 import * as functions from '../../redux/functions';
 import { Spinner } from '../../components';
 
@@ -9,7 +8,6 @@ const AddItem = () => {
   const [values, setValues] = useState(null);
 
   const user = useSelector((state) => { return state.user; });
-  console.log(user.userData.email);
 
   const history = useHistory();
 
@@ -35,8 +33,10 @@ const AddItem = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await functions.items.addItem(values.title, values.subtitle, values.body, user.userData.email);
-    history.go(0);
+    const res = await functions.items.addItem(values.title, values.subtitle, values.body, user.userData.email);
+    if (res === true) {
+      history.go(0);
+    }
   };
 
   return (

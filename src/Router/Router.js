@@ -11,19 +11,14 @@ const Router = () => {
   useEffect(() => {
     auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log('auth().currentUser', auth().currentUser.email);
         functions.user.setUserData(auth().currentUser);
       } else {
         functions.user.signOutUser();
-        console.warn('no user');
       }
     });
-  }, [auth().currentUser]);
+  }, []);
 
   const error = useSelector((state) => { return state.error; });
-  useEffect(() => {
-    // todo?
-  }, [error.errorMessage]);
 
   return (
     <>

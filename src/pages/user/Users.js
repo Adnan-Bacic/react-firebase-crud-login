@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { firestore } from '../../firebase/config';
 import * as functions from '../../redux/functions';
 import UsersItem from './UsersItem';
 import { Spinner, LineContainer } from '../../components';
@@ -8,7 +7,6 @@ import { Spinner, LineContainer } from '../../components';
 const Users = () => {
   const isLoading = useSelector((state) => { return state.isLoading; });
   const users = useSelector((state) => { return state.users; });
-  console.log('u', users.usersList);
 
   useEffect(() => {
     const getFirebaseData = async () => {

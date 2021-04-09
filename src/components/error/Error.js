@@ -4,10 +4,9 @@ import * as functions from '../../redux/functions';
 
 const Error = () => {
   const error = useSelector((state) => { return state.error; });
-  console.log('errorMessage', error.errorMessage);
 
   useEffect(() => {
-    const clearError = async () => {
+    const clearError = () => {
       if (error.errorMessage) {
         // temp solution?
         setTimeout(() => {
@@ -25,6 +24,7 @@ const Error = () => {
         <div className="row">
           <div className="col-12">
             <div className="alert alert-info">
+              <h2>{error.errorMessage.name}</h2>
               {`${error.errorMessage.code}: ${error.errorMessage.message}`}
             </div>
           </div>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { auth, firestore } from '../../firebase/config';
 import * as functions from '../../redux/functions';
 
 const Register = () => {
@@ -23,8 +22,9 @@ const Register = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const res = await functions.user.registerUser(userInfo.email, userInfo.password, userInfo.name);
-    console.log(res);
-    // history.push('/');
+    if (res === true) {
+      history.push('/');
+    }
   };
 
   return (

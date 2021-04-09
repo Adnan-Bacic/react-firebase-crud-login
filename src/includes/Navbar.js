@@ -1,15 +1,12 @@
-/* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { auth } from '../firebase/config';
 import * as functions from '../redux/functions';
 
 const Navbar = () => {
   const history = useHistory();
 
   const user = useSelector((state) => { return state.user; });
-  console.log('navbar user', user);
 
   const signOutHandler = async (e) => {
     e.preventDefault();

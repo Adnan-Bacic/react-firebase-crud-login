@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 
-import { firestore } from '../../firebase/config';
-
 const ItemsByUser = ({ match, location }) => {
   const isLoading = useSelector((state) => { return state.isLoading; });
   const users = useSelector((state) => { return state.users; });
-  console.log('u', users.itemsByUser);
 
   useEffect(() => {
-    console.log('match', match.params.email);
-    console.log('param(state) of user', location.state.id);
+    // console.log('match', match.params.email);
+    // console.log('param(state) of user', location.state.id);
 
     const getItemsByUser = async () => {
       functions.isLoading.setIsLoading(true);
@@ -24,7 +21,7 @@ const ItemsByUser = ({ match, location }) => {
     };
     
     getItemsByUser();
-  }, []);
+  }, [location?.state?.id, match.params.email]);
 
   return (
     <>

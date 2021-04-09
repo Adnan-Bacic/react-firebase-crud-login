@@ -1,5 +1,6 @@
 import store from '../configureStore';
 import * as actions from '../actions';
+import * as errors from './error';
 import { auth, firestore } from '../../firebase/config';
 
 export const setUserData = (userData) => {
@@ -20,7 +21,7 @@ export const registerUser = async (email, password, name) => {
 
     return true;
   } catch (err) {
-    store.dispatch(actions.error.setError(err));
+    errors.setError(err);
     return err;
   }
 };
@@ -29,8 +30,10 @@ export const loginuser = async (email, password) => {
   try {
     await auth().signInWithEmailAndPassword(email, password);
     store.dispatch(actions.user.loginUser());
+    return true;
   } catch (err) {
-    store.dispatch(actions.error.setError(err));
+    errors.setError(err);
+    return err;
   }
 };
 
@@ -38,8 +41,10 @@ export const signOutUser = async () => {
   try {
     await auth().signOut();
     store.dispatch(actions.user.signOutUser());
+    return true;
   } catch (err) {
-    store.dispatch(actions.error.setError(err));
+    errors.setError(err);
+    return err;
   }
 };
 
@@ -60,7 +65,10 @@ export const getProfileData = async () => {
     }
 
     store.dispatch(actions.user.getProfileData(doc.data()));
+
+    return true;
   } catch (err) {
-    console.log(err);
+    errors.setError(err);
+    return err;
   }
 };

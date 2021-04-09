@@ -1,6 +1,7 @@
 import store from '../configureStore';
 import * as actions from '../actions';
 import { auth, firestore } from '../../firebase/config';
+import * as errors from './error';
 
 export const getAllItems = async () => {
   try {
@@ -22,8 +23,11 @@ export const getAllItems = async () => {
     });
 
     store.dispatch(actions.items.getAllItems(arr));
+
+    return true;
   } catch (err) {
-    console.log(err);
+    errors.setError(err);
+    return err;
   }
 };
 
@@ -38,8 +42,10 @@ export const getSingleItem = async (id) => {
     }
 
     store.dispatch(actions.items.getSingleItem(doc.data()));
+    return true;
   } catch (err) {
-    console.error('err:', err);
+    errors.setError(err);
+    return err;
   }
 };
 
@@ -55,9 +61,11 @@ export const addItem = async (title, subtitle, body, createdBy) => {
     });
 
     store.dispatch(actions.items.addItem());
+
+    return true;
   } catch (err) {
-    // TODO: ERROR HANDLING
-    console.error('err:', err);
+    errors.setError(err);
+    return err;
   }
 };
 
@@ -72,8 +80,11 @@ export const deleteItem = async (id, createdBy) => {
     await ref.doc(id).delete();
 
     store.dispatch(actions.items.deleteItem());
+
+    return true;
   } catch (err) {
-    console.log(err);
+    errors.setError(err);
+    return err;
   }
 };
 
@@ -94,7 +105,10 @@ export const editItem = async (id, title, subtitle, body) => {
     });
 
     store.dispatch(actions.items.editItem());
+
+    return true;
   } catch (err) {
-    console.log(err);
+    errors.setError(err);
+    return err;
   }
 };
