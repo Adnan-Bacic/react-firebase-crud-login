@@ -48,20 +48,6 @@ const Items = () => {
           </div>
         </>
       )}
-      {/*
-      {noDataMsg && (
-        <>
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <h2>{noDataMsg.name}</h2>
-                <p>{noDataMsg.message}</p>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-      */}
     </>
   );
 };

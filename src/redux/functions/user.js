@@ -42,3 +42,25 @@ export const signOutUser = async () => {
     store.dispatch(actions.error.setError(err));
   }
 };
+
+// TODO: ERROR WHEN RELOADING
+export const getProfileData = async () => {
+  try {
+    // if people go to the url manually auth().currentUser is null
+    const userId = auth()?.currentUser?.uid;
+
+    if (!userId) {
+      throw new Error('Invalid query');
+    }
+
+    const doc = await firestore().collection('users').doc(userId).get();
+
+    if (!doc.exists) {
+      throw new Error('No user info');
+    }
+
+    store.dispatch(actions.user.getProfileData(doc.data()));
+  } catch (err) {
+    console.log(err);
+  }
+};

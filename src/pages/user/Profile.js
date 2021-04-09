@@ -5,36 +5,16 @@ import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 
 const Profile = () => {
-  const [userData, setUserData] = useState(null);
-  const [noDataMsg, setNoDataMsg] = useState(null);
-
   const isLoading = useSelector((state) => { return state.isLoading; });
+  const user = useSelector((state) => { return state.user; });
 
-  // TODO: ERROR WHEN RELOADING
   useEffect(() => {
     const getCurrentUser = async () => {
       functions.isLoading.setIsLoading(true);
 
-      try {
-        // if people go to the url manually auth().currentUser is null
-        const userId = auth()?.currentUser?.uid;
+      await functions.user.getProfileData();
 
-        if (!userId) {
-          throw new Error('Invalid query');
-        }
-
-        const doc = await firestore().collection('users').doc(userId).get();
-    
-        if (!doc.exists) {
-          throw new Error('No user info');
-        }
-
-        setUserData(doc.data());
-      } catch (err) {
-        setNoDataMsg(err);
-      }
-
-      await isLoading.setIsLoading(false);
+      functions.isLoading.setIsLoading(false);
     };
 
     getCurrentUser();
@@ -53,29 +33,17 @@ const Profile = () => {
       {isLoading.isLoadingState && (
         <Spinner />
       )}
-      {userData && (
+      {user.profileData && (
         <>
           <div className="container">
             <div className="row">
               <div className="col-12">
                 <p>
-                  {`Name: ${userData.name}`}
+                  {`Name: ${user.profileData.name}`}
                 </p>
                 <p>
-                  {`Email: ${userData.email}`}
+                  {`Email: ${user.profileData.email}`}
                 </p>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-      {noDataMsg && (
-        <>
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <h2>{noDataMsg.name}</h2>
-                <p>{noDataMsg.message}</p>
               </div>
             </div>
           </div>

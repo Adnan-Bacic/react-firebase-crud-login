@@ -2,6 +2,7 @@ import * as types from '../types';
 
 const defaultState = {
   userData: null,
+  profileData: null,
 };
 
 export const userReducer = (state = defaultState, action) => {
@@ -26,6 +27,12 @@ export const userReducer = (state = defaultState, action) => {
     return {
       ...state,
       userData: null,
+    };
+
+  case types.GET_PROFILE_DATA:
+    return {
+      ...state,
+      profileData: action.payloadProfileData,
     };
 
   default:

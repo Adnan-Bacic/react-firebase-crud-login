@@ -7,61 +7,24 @@ import { Spinner, LineContainer } from '../../components';
 import { firestore } from '../../firebase/config';
 
 const ItemsByUser = ({ match, location }) => {
-  const [itemsByUser, setItemsByUser] = useState(null);
-  const [noDataMsg, setNoDataMsg] = useState(null);
-
   const isLoading = useSelector((state) => { return state.isLoading; });
+  const users = useSelector((state) => { return state.users; });
+  console.log('u', users.itemsByUser);
 
   useEffect(() => {
-    // console.log(match)
-    // console.log('param(state) of user', location.state);
+    console.log('match', match.params.email);
+    console.log('param(state) of user', location.state.id);
 
     const getItemsByUser = async () => {
       functions.isLoading.setIsLoading(true);
 
-      try {
-        // if people change the url manually then location.state.id is undefined. and undefined values cannot be use in firebase queries.
-        const userId = location?.state?.id;
-
-        if (!userId) {
-          throw new Error('Invalid query');
-        }
-
-        // first check if userid exists. should only happen if people manually edit the url
-        const userRef = await firestore().collection('users').doc(userId).get();
-
-        if (!userRef.exists) {
-          throw new Error('This user does not exist');
-        }
-
-        // if there is a user
-        const ref = firestore().collection('items').where('createdBy', '==', match.params.email);
-
-        const data = await ref.get();
-  
-        const arr = [];
-    
-        if (data.empty) {
-          throw new Error('No items for this user');
-        }
-
-        data.forEach((doc) => {
-          // console.log('doc.data()', doc.data());
-          const result = doc.data();
-          result.id = doc.id;
-          arr.push(result);
-        });
-
-        setItemsByUser(arr);
-      } catch (err) {
-        setNoDataMsg(err);
-      }
+      await functions.users.getAllItemsByUser(location?.state?.id, match.params.email);
 
       functions.isLoading.setIsLoading(false);
     };
     
     getItemsByUser();
-  }, [location?.state?.id, match.params.email]);
+  }, []);
 
   return (
     <>
@@ -76,10 +39,10 @@ const ItemsByUser = ({ match, location }) => {
       {isLoading.isLoadingState && (
         <Spinner />
       )}
-      {itemsByUser && (
+      {users.itemsByUser && (
         <div className="container">
           <div className="row">
-            {itemsByUser.map((item) => {
+            {users.itemsByUser.map((item) => {
               return (
 
                 <div className="card col-lg-3 col-sm-12 mx-3 mb-3" key={item.id}>
@@ -94,18 +57,6 @@ const ItemsByUser = ({ match, location }) => {
           
           </div>
         </div>
-      )}
-      {noDataMsg && (
-        <>
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <h2>{noDataMsg.name}</h2>
-                <p>{noDataMsg.message}</p>
-              </div>
-            </div>
-          </div>
-        </>
       )}
     </>
   );

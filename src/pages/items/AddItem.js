@@ -9,6 +9,7 @@ const AddItem = () => {
   const [values, setValues] = useState(null);
 
   const user = useSelector((state) => { return state.user; });
+  console.log(user.userData.email);
 
   const history = useHistory();
 
@@ -34,13 +35,13 @@ const AddItem = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await functions.items.addItem(values.title, values.subtitle, values.body, auth().currentUser.email);
+    await functions.items.addItem(values.title, values.subtitle, values.body, user.userData.email);
     history.go(0);
   };
 
   return (
     <>
-      {isLoading.isLoadingState && !auth().currentUser && (
+      {isLoading.isLoadingState && !user.userData && (
         <Spinner />
       )}
       {user?.userData && (

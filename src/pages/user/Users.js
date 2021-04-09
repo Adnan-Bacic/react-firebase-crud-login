@@ -6,37 +6,15 @@ import UsersItem from './UsersItem';
 import { Spinner, LineContainer } from '../../components';
 
 const Users = () => {
-  const [firebaseRes, setFirebaseRes] = useState(null);
-  const [noDataMsg, setNoDataMsg] = useState(null);
-
   const isLoading = useSelector((state) => { return state.isLoading; });
+  const users = useSelector((state) => { return state.users; });
+  console.log('u', users.usersList);
 
   useEffect(() => {
     const getFirebaseData = async () => {
       functions.isLoading.setIsLoading(true);
 
-      try {
-        const ref = firestore().collection('users');
-  
-        const arr = [];
-
-        const data = await ref.get();
-
-        if (data.empty) {
-          throw new Error('No users');
-        }
-
-        data.forEach((doc) => {
-          // console.log('doc.data()', doc.data());
-          const result = doc.data();
-          result.id = doc.id;
-          arr.push(result);
-        });
-        
-        setFirebaseRes(arr);
-      } catch (err) {
-        setNoDataMsg(err);
-      }
+      await functions.users.getAllUsers();
 
       functions.isLoading.setIsLoading(false);
     };
@@ -57,10 +35,10 @@ const Users = () => {
       {isLoading.isLoadingState && (
         <Spinner />
       )}
-      {firebaseRes && (
+      {users.usersList && (
         <div className="container">
           <div className="row">
-            {firebaseRes.map((item) => {
+            {users.usersList.map((item) => {
               return (
                 <UsersItem
                   key={item.id}
@@ -72,18 +50,6 @@ const Users = () => {
             })}
           </div>
         </div>
-      )}
-      {noDataMsg && (
-        <>
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <h2>{noDataMsg.name}</h2>
-                <p>{noDataMsg.message}</p>
-              </div>
-            </div>
-          </div>
-        </>
       )}
     </>
   );

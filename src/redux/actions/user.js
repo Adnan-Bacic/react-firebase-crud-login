@@ -24,3 +24,10 @@ export const signOutUser = () => {
     type: types.SIGNOUT_USER,
   };
 };
+
+export const getProfileData = (profileData) => {
+  return {
+    type: types.GET_PROFILE_DATA,
+    payloadProfileData: profileData,
+  };
+};

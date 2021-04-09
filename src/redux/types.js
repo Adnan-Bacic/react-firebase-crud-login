@@ -13,3 +13,7 @@ export const GET_SINGLE_ITEMS = 'GET_SINGLE_ITEMS';
 export const ADD_ITEM = 'ADD_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const EDIT_ITEM = 'EDIT_ITEM';
+export const GET_PROFILE_DATA = 'GET_PROFILE_DATA';
+
+export const GET_ALL_ITEMS_BY_USER = 'GET_ALL_ITEMS_BY_USER';
+export const GET_ALL_USERS = 'GET_ALL_USERS';
