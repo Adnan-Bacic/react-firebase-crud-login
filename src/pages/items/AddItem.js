@@ -5,7 +5,11 @@ import * as functions from '../../redux/functions';
 import { Spinner } from '../../components';
 
 const AddItem = () => {
-  const [values, setValues] = useState(null);
+  const [values, setValues] = useState({
+    title: '',
+    subtitle: '',
+    body: '',
+  });
 
   const user = useSelector((state) => { return state.user; });
 

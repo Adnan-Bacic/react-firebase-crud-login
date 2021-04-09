@@ -42,7 +42,7 @@ export const getSingleItem = async (id) => {
     }
 
     store.dispatch(actions.items.getSingleItem(doc.data()));
-    return true;
+    return doc.data();
   } catch (err) {
     errors.setError(err);
     return err;

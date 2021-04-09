@@ -6,7 +6,11 @@ import * as functions from '../../redux/functions';
 import { Spinner, Line, LineContainer } from '../../components';
 
 const EditItem = ({ match }) => {
-  const [specificItem, setSpecificItem] = useState(null);
+  const [specificItem, setSpecificItem] = useState({
+    title: '',
+    subtitle: '',
+    body: '',
+  });
 
   const isLoading = useSelector((state) => { return state.isLoading; });
   const items = useSelector((state) => { return state.items; });
@@ -19,7 +23,8 @@ const EditItem = ({ match }) => {
     const getOneItem = async () => {
       functions.isLoading.setIsLoading(true);
 
-      await functions.items.getSingleItem(match.params.id);
+      const res = await functions.items.getSingleItem(match.params.id);
+      setSpecificItem(res);
 
       functions.isLoading.setIsLoading(false);
     };

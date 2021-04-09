@@ -23,7 +23,6 @@ const Login = () => {
     e.preventDefault();
 
     const res = await functions.user.loginuser(userInfo.email, userInfo.password);
-    console.log('res', res);
     if (res === true) {
       history.push('/');
     }
