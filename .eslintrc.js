@@ -38,5 +38,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/button-has-type': 'off',
     'object-shorthand': 'off',
+    'prefer-destructuring': 'off',
   },
 };

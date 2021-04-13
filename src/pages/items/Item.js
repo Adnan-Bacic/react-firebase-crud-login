@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { auth } from '../../firebase/config';
 import { Line } from '../../components';
 import DeleteItem from './DeleteItem';
 
 const Item = ({
   id, title, subtitle, createdBy,
 }) => {
+  const user = useSelector((state) => { return state.user; });
+
   return (
     <>
       <div className="card col-lg-3 col-sm-12 mx-3 mb-3" key={id}>
@@ -18,7 +19,7 @@ const Item = ({
           <Link to={`/edit/${id}`}>See more</Link>
           <Line />
           <p>{createdBy}</p>
-          {auth()?.currentUser?.email === createdBy && (
+          {user?.userData?.email === createdBy && (
             <DeleteItem id={id} createdBy={createdBy} />
           )}
         </div>
