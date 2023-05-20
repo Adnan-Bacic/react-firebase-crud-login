@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import * as functions from '../../redux/functions';
 import { Spinner, Line, LineContainer } from '../../components';
 
-const EditItem = ({ match }) => {
+const EditItem = () => {
   const [specificItem, setSpecificItem] = useState({
     title: '',
     subtitle: '',
@@ -17,20 +16,20 @@ const EditItem = ({ match }) => {
   const user = useSelector((state) => { return state.user; });
 
   const history = useHistory();
+  const params = useParams()
 
   useEffect(() => {
-    // console.log(match)
     const getOneItem = async () => {
       functions.isLoading.setIsLoading(true);
 
-      const res = await functions.items.getSingleItem(match.params.id);
+      const res = await functions.items.getSingleItem(params.id);
       setSpecificItem(res);
 
       functions.isLoading.setIsLoading(false);
     };
 
     getOneItem();
-  }, [match.params.id]);
+  }, [params.id]);
 
   const onChangeHandler = (e) => {
     const { target } = e;
@@ -46,7 +45,7 @@ const EditItem = ({ match }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const res = await functions.items.editItem(match.params.id, specificItem.title, specificItem.subtitle, specificItem.body, user.userData.email);
+    const res = await functions.items.editItem(params.id, specificItem.title, specificItem.subtitle, specificItem.body, user.userData.email);
     if (res === true) {
       history.go(0);
     }
@@ -114,10 +113,6 @@ const EditItem = ({ match }) => {
       )}
     </>
   );
-};
-
-EditItem.propTypes = {
-  match: PropTypes.object.isRequired,
 };
 
 export default EditItem;
