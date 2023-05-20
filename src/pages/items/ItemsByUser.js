@@ -1,34 +1,34 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom'
 import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 
-const ItemsByUser = ({ match, location }) => {
+const ItemsByUser = ({ location }) => {
   const isLoading = useSelector((state) => { return state.isLoading; });
   const users = useSelector((state) => { return state.users; });
 
-  useEffect(() => {
-    // console.log('match', match.params.email);
-    // console.log('param(state) of user', location.state.id);
+  const params = useParams()
 
+  useEffect(() => {
     const getItemsByUser = async () => {
       functions.isLoading.setIsLoading(true);
 
-      await functions.users.getAllItemsByUser(location?.state?.id, match.params.email);
+      await functions.users.getAllItemsByUser(location?.state?.id, params.email);
 
       functions.isLoading.setIsLoading(false);
     };
     
     getItemsByUser();
-  }, [location?.state?.id, match.params.email]);
+  }, [location?.state?.id, params.email]);
 
   return (
     <>
       <div className="container">
         <div className="row">
           <h1 className="col-12">
-            {`Items by ${match.params.email}`}
+            {`Items by ${params.email}`}
           </h1>
         </div>
       </div>
@@ -60,7 +60,6 @@ const ItemsByUser = ({ match, location }) => {
 };
 
 ItemsByUser.propTypes = {
-  match: PropTypes.object.isRequired,
   location: PropTypes.object,
 };
 
