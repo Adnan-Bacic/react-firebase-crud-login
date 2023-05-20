@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 
-const ItemsByUser = ({ location }) => {
+const ItemsByUser = () => {
   const isLoading = useSelector((state) => { return state.isLoading; });
   const users = useSelector((state) => { return state.users; });
 
@@ -15,13 +14,13 @@ const ItemsByUser = ({ location }) => {
     const getItemsByUser = async () => {
       functions.isLoading.setIsLoading(true);
 
-      await functions.users.getAllItemsByUser(location?.state?.id, params.email);
+      await functions.users.getAllItemsByUser(params.email);
 
       functions.isLoading.setIsLoading(false);
     };
     
     getItemsByUser();
-  }, [location?.state?.id, params.email]);
+  }, [params.email]);
 
   return (
     <>
@@ -57,14 +56,6 @@ const ItemsByUser = ({ location }) => {
       )}
     </>
   );
-};
-
-ItemsByUser.propTypes = {
-  location: PropTypes.object,
-};
-
-ItemsByUser.defaultProps = {
-  location: {},
 };
 
 export default ItemsByUser;

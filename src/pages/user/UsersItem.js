@@ -9,12 +9,7 @@ const UsersItem = ({ id, name, email }) => {
         <div className="card-body">
           <h5 className="card-title">{name}</h5>
           <h6 className="card-subtitle mb-2 text-muted">{email}</h6>
-          <Link
-            to={{
-              pathname: `/items-by-user/${email}`,
-              state: { id },
-            }}
-          >
+          <Link to={`/items-by-user/${email}`}>
             See items by this user
           </Link>
         </div>
