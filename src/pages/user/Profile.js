@@ -9,6 +9,10 @@ const Profile = () => {
 
   useEffect(() => {
     const getCurrentUser = async () => {
+      if (user.userData === null) {
+        return;
+      }
+
       functions.isLoading.setIsLoading(true);
 
       await functions.user.getProfileData();
@@ -17,7 +21,7 @@ const Profile = () => {
     };
 
     getCurrentUser();
-  }, []);
+  }, [user.userData]);
 
   return (
     <>

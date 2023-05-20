@@ -48,7 +48,6 @@ export const signOutUser = async () => {
   }
 };
 
-// TODO: ERROR WHEN RELOADING
 export const getProfileData = async () => {
   try {
     // if people go to the url manually auth().currentUser is null
