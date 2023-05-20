@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 
@@ -9,7 +9,7 @@ const ItemsByUser = ({ location }) => {
   const isLoading = useSelector((state) => { return state.isLoading; });
   const users = useSelector((state) => { return state.users; });
 
-  const params = useParams()
+  const params = useParams();
 
   useEffect(() => {
     const getItemsByUser = async () => {

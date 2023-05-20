@@ -16,7 +16,7 @@ const EditItem = () => {
   const user = useSelector((state) => { return state.user; });
 
   const history = useHistory();
-  const params = useParams()
+  const params = useParams();
 
   useEffect(() => {
     const getOneItem = async () => {
