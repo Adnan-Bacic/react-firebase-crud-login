@@ -9,13 +9,15 @@ import * as Components from '../components';
 
 const Router = () => {
   useEffect(() => {
-    auth().onAuthStateChanged((user) => {
+    const unsubscribe = auth().onAuthStateChanged((user) => {
       if (user) {
         functions.user.setUserData(auth().currentUser);
       } else {
         functions.user.signOutUser();
       }
     });
+
+    return unsubscribe;
   }, []);
 
   const error = useSelector((state) => { return state.error; });
