@@ -3,7 +3,7 @@ import { BrowserRouter as RouterContainer, Switch, Route } from 'react-router-do
 import { useSelector } from 'react-redux';
 import { auth } from '../firebase/config';
 import * as functions from '../redux/functions';
-import * as Pages from '../pages';
+import * as Pages from '../pages/index';
 import * as Includes from '../includes';
 import * as Components from '../components';
 
