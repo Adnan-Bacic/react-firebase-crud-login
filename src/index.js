@@ -1,11 +1,14 @@
 /* eslint-disable no-console */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './App';
 import store from './redux/configureStore';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
   <Provider store={store}>
     <React.StrictMode>
       {/*
@@ -21,5 +24,4 @@ ReactDOM.render(
       <App />
     </React.StrictMode>
   </Provider>,
-  document.getElementById('root'),
 );
