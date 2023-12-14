@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 
 const ItemsByUser = () => {
-  const isLoading = useSelector((state) => { return state.isLoading; });
+  const [isLoading, setIsLoading] = useState(false);
   const users = useSelector((state) => { return state.users; });
 
   const params = useParams();
 
   useEffect(() => {
     const getItemsByUser = async () => {
-      functions.isLoading.setIsLoading(true);
+      setIsLoading(true);
 
       await functions.users.getAllItemsByUser(params.email);
 
-      functions.isLoading.setIsLoading(false);
+      setIsLoading(false);
     };
     
     getItemsByUser();
@@ -32,7 +32,7 @@ const ItemsByUser = () => {
         </div>
       </div>
       <LineContainer />
-      {isLoading.isLoadingState && (
+      {isLoading && (
         <Spinner />
       )}
       {users.itemsByUser && (

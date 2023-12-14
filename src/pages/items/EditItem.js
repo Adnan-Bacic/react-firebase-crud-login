@@ -11,7 +11,8 @@ const EditItem = () => {
     body: '',
   });
 
-  const isLoading = useSelector((state) => { return state.isLoading; });
+  const [isLoading, setIsLoading] = useState(false);
+
   const items = useSelector((state) => { return state.items; });
   const user = useSelector((state) => { return state.user; });
 
@@ -20,12 +21,12 @@ const EditItem = () => {
 
   useEffect(() => {
     const getOneItem = async () => {
-      functions.isLoading.setIsLoading(true);
+      setIsLoading(true);
 
       const res = await functions.items.getSingleItem(params.id);
       setSpecificItem(res);
 
-      functions.isLoading.setIsLoading(false);
+      setIsLoading(false);
     };
 
     getOneItem();
@@ -53,7 +54,7 @@ const EditItem = () => {
 
   return (
     <>
-      {isLoading.isLoadingState && (
+      {isLoading && (
         <Spinner />
       )}
       {items.singleItem && (
@@ -81,7 +82,7 @@ const EditItem = () => {
       )}
       <LineContainer />
           
-      {isLoading.isLoadingState && (
+      {isLoading && (
         <Spinner />
       )}
       {user?.userData?.email === items.singleItem?.createdBy && (

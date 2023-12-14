@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Item from './Item';
 import AddItem from './AddItem';
@@ -6,16 +6,17 @@ import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 
 const Items = () => {
-  const isLoading = useSelector((state) => { return state.isLoading; });
+  const [isLoading, setIsLoading] = useState(false);
+
   const items = useSelector((state) => { return state.items; });
 
   useEffect(() => {
     const getFirebaseData = async () => {
-      functions.isLoading.setIsLoading(true);
+      setIsLoading(true);
 
       await functions.items.getAllItems();
 
-      functions.isLoading.setIsLoading(false);
+      setIsLoading(false);
     };
 
     getFirebaseData();
@@ -25,7 +26,7 @@ const Items = () => {
     <>
       <AddItem />
       <LineContainer />
-      {isLoading.isLoadingState && (
+      {isLoading && (
         <Spinner />
       )}
       {items.firebaseItems && (

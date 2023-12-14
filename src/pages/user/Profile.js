@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 
 const Profile = () => {
-  const isLoading = useSelector((state) => { return state.isLoading; });
+  const [isLoading, setIsLoading] = useState(false);
+
   const user = useSelector((state) => { return state.user; });
 
   useEffect(() => {
@@ -13,11 +14,11 @@ const Profile = () => {
         return;
       }
 
-      functions.isLoading.setIsLoading(true);
+      setIsLoading(true);
 
       await functions.user.getProfileData();
 
-      functions.isLoading.setIsLoading(false);
+      setIsLoading(false);
     };
 
     getCurrentUser();
@@ -33,7 +34,7 @@ const Profile = () => {
         </div>
       </div>
       <LineContainer />
-      {isLoading.isLoadingState && (
+      {isLoading && (
         <Spinner />
       )}
       {user.profileData && (

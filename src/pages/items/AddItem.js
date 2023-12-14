@@ -5,6 +5,7 @@ import * as functions from '../../redux/functions';
 import { Spinner } from '../../components';
 
 const AddItem = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [values, setValues] = useState({
     title: '',
     subtitle: '',
@@ -25,15 +26,13 @@ const AddItem = () => {
 
   useEffect(() => {
     const setLoading = async () => {
-      functions.isLoading.setIsLoading(true);
-    
-      functions.isLoading.setIsLoading(false);
+      setIsLoading(true);
+      
+      setIsLoading(false);
     };
 
     setLoading();
   }, []);
-
-  const isLoading = useSelector((state) => { return state.isLoading; });
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -45,7 +44,7 @@ const AddItem = () => {
 
   return (
     <>
-      {isLoading.isLoadingState && !user.userData && (
+      {isLoading && !user.userData && (
         <Spinner />
       )}
       {user?.userData && (
@@ -73,7 +72,7 @@ const AddItem = () => {
           </div>
         </div>
       )}
-      {user?.userData && !isLoading.isLoadingState && (
+      {!user?.userData && !isLoading && (
         <>
           <div className="container">
             <div className="row">

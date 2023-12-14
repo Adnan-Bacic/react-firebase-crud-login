@@ -1,20 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as functions from '../../redux/functions';
 import UsersItem from './UsersItem';
 import { Spinner, LineContainer } from '../../components';
 
 const Users = () => {
-  const isLoading = useSelector((state) => { return state.isLoading; });
+  const [isLoading, setIsLoading] = useState(false);
+
   const users = useSelector((state) => { return state.users; });
 
   useEffect(() => {
     const getFirebaseData = async () => {
-      functions.isLoading.setIsLoading(true);
+      setIsLoading(true);
 
       await functions.users.getAllUsers();
 
-      functions.isLoading.setIsLoading(false);
+      setIsLoading(false);
     };
 
     getFirebaseData();
@@ -30,7 +31,7 @@ const Users = () => {
         </div>
       </div>
       <LineContainer />
-      {isLoading.isLoadingState && (
+      {isLoading && (
         <Spinner />
       )}
       {users.usersList && (
