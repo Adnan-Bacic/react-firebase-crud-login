@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -11,16 +10,6 @@ const root = createRoot(container);
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      {/*
-      <button
-        type="button"
-        onClick={() => {
-          console.log('STORE', store.getState());
-        }}
-      >
-        log redux store
-      </button>
-      */}
       <App />
     </React.StrictMode>
   </Provider>,
