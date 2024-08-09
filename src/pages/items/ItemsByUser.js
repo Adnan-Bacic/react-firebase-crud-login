@@ -40,7 +40,6 @@ const ItemsByUser = () => {
           <div className="row">
             {users.itemsByUser.map((item) => {
               return (
-
                 <div className="card col-lg-3 col-sm-12 mx-3 mb-3" key={item.id}>
                   <div className="card-body">
                     <h5 className="card-title">{item.title}</h5>
@@ -50,7 +49,6 @@ const ItemsByUser = () => {
                 </div>
               );
             })}
-          
           </div>
         </div>
       )}

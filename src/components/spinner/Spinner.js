@@ -3,11 +3,9 @@ import SpinnerGif from '../../assets/gifs/spinner.gif';
 
 const Spinner = () => {
   return (
-    <>
-      <div className="text-center">
-        <img src={SpinnerGif} alt="spinner" />
-      </div>
-    </>
+    <div className="text-center">
+      <img src={SpinnerGif} alt="spinner" />
+    </div>
   );
 };
 

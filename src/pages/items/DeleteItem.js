@@ -16,11 +16,9 @@ const DeleteItem = ({ id, createdBy }) => {
   };
 
   return (
-    <>
-      <form onSubmit={deleteHandler}>
-        <button type="submit" className="btn btn-danger">Delete</button>
-      </form>
-    </>
+    <form onSubmit={deleteHandler}>
+      <button type="submit" className="btn btn-danger">Delete</button>
+    </form>
   );
 };
 

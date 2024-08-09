@@ -38,20 +38,18 @@ const Profile = () => {
         <Spinner />
       )}
       {user.profileData && (
-        <>
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <p>
-                  {`Name: ${user.profileData.name}`}
-                </p>
-                <p>
-                  {`Email: ${user.profileData.email}`}
-                </p>
-              </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <p>
+                {`Name: ${user.profileData.name}`}
+              </p>
+              <p>
+                {`Email: ${user.profileData.email}`}
+              </p>
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );

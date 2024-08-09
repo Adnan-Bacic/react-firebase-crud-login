@@ -30,23 +30,21 @@ const Items = () => {
         <Spinner />
       )}
       {items.firebaseItems && (
-        <>
-          <div className="container">
-            <div className="row">
-              {items.firebaseItems.map((item) => {
-                return (
-                  <Item
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    subtitle={item.subtitle}
-                    createdBy={item.createdBy}
-                  />
-                );
-              })}
-            </div>
+        <div className="container">
+          <div className="row">
+            {items.firebaseItems.map((item) => {
+              return (
+                <Item
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  subtitle={item.subtitle}
+                  createdBy={item.createdBy}
+                />
+              );
+            })}
           </div>
-        </>
+        </div>
       )}
     </>
   );

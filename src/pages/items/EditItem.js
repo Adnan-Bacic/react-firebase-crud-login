@@ -58,27 +58,25 @@ const EditItem = () => {
         <Spinner />
       )}
       {items.singleItem && (
-        <>
-          <div className="container">
-            <div className="row">
-              <div className="col-12 mx-auto">
-                <div className="jumbotron mt-3">
-                  <h1 className="display-4">{items.singleItem?.title}</h1>
-                  <p className="lead">{items.singleItem?.subtitle}</p>
-                  <Line />
-                  <p>{items.singleItem?.body}</p>
-                  <Line />
-                  <p>
-                    {`Made by: ${items.singleItem?.createdBy}`}
-                  </p>
-                  <p className="lead">
-                    <Link to="/">Go back to frontpage</Link>
-                  </p>
-                </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-12 mx-auto">
+              <div className="jumbotron mt-3">
+                <h1 className="display-4">{items.singleItem?.title}</h1>
+                <p className="lead">{items.singleItem?.subtitle}</p>
+                <Line />
+                <p>{items.singleItem?.body}</p>
+                <Line />
+                <p>
+                  {`Made by: ${items.singleItem?.createdBy}`}
+                </p>
+                <p className="lead">
+                  <Link to="/">Go back to frontpage</Link>
+                </p>
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
       <LineContainer />
           

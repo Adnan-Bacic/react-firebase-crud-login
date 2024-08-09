@@ -73,15 +73,13 @@ const AddItem = () => {
         </div>
       )}
       {!user?.userData && !isLoading && (
-        <>
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <h2>You must be logged in to create items</h2>
-              </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h2>You must be logged in to create items</h2>
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );

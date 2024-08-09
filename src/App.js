@@ -9,9 +9,7 @@ import './App.css';
 
 const App = () => {
   return (
-    <>
-      <Router />
-    </>
+    <Router />
   );
 };
 
