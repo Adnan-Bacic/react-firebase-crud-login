@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Line } from '../../components';
 import DeleteItem from './DeleteItem';
 
 const Item = ({
@@ -16,7 +15,7 @@ const Item = ({
         <h5 className="card-title">{title}</h5>
         <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
         <Link to={`/edit/${id}`}>See more</Link>
-        <Line />
+        <hr />
         <p>{createdBy}</p>
         {user?.userData?.email === createdBy && (
           <DeleteItem id={id} createdBy={createdBy} />

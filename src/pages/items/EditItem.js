@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import * as functions from '../../redux/functions';
-import { Spinner, Line, LineContainer } from '../../components';
+import { Spinner, LineContainer } from '../../components';
 
 const EditItem = () => {
   const [specificItem, setSpecificItem] = useState({
@@ -64,9 +64,9 @@ const EditItem = () => {
               <div className="jumbotron mt-3">
                 <h1 className="display-4">{items.singleItem?.title}</h1>
                 <p className="lead">{items.singleItem?.subtitle}</p>
-                <Line />
+                <hr />
                 <p>{items.singleItem?.body}</p>
-                <Line />
+                <hr />
                 <p>
                   {`Made by: ${items.singleItem?.createdBy}`}
                 </p>

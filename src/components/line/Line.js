@@ -11,9 +11,3 @@ export const LineContainer = () => {
     </div>
   );
 };
-
-export const Line = () => {
-  return (
-    <hr />
-  );
-};
