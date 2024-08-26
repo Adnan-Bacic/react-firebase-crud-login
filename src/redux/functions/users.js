@@ -16,7 +16,6 @@ export const getAllItemsByUser = async (email) => {
     }
 
     data.forEach((doc) => {
-      // console.log('doc.data()', doc.data());
       const result = doc.data();
       result.id = doc.id;
       arr.push(result);
@@ -44,7 +43,6 @@ export const getAllUsers = async () => {
     }
 
     data.forEach((doc) => {
-      // console.log('doc.data()', doc.data());
       const result = doc.data();
       result.id = doc.id;
       arr.push(result);

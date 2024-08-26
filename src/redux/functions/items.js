@@ -16,7 +16,6 @@ export const getAllItems = async () => {
     }
 
     data.forEach((doc) => {
-      // console.log('doc.data()', doc.data());
       const result = doc.data();
       result.id = doc.id;
       arr.push(result);

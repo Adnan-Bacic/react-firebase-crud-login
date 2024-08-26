@@ -8,7 +8,6 @@ const Login = () => {
   const history = useHistory();
 
   const onChangeHandler = (e) => {
-    // console.log(userInfo);
     const { target } = e;
     const { value } = target;
     const { name } = target;
