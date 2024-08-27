@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import * as functions from '../../redux/functions';
 import { Spinner } from '../../components';
 
@@ -13,8 +12,6 @@ const AddItem = () => {
   });
 
   const user = useSelector((state) => { return state.user; });
-
-  const history = useHistory();
 
   const onChangeHandler = (text) => {
     const { value } = text.target;
@@ -36,10 +33,7 @@ const AddItem = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await functions.items.addItem(values.title, values.subtitle, values.body, user.userData.email);
-    if (res === true) {
-      history.go(0);
-    }
+    await functions.items.addItem(values.title, values.subtitle, values.body, user.userData.email);
   };
 
   return (

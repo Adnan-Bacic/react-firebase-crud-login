@@ -1,18 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
 import * as functions from '../../redux/functions';
 
 const DeleteItem = ({ id, createdBy }) => {
-  const history = useHistory();
-
   const deleteHandler = async (e) => {
     e.preventDefault();
-    const res = await functions.items.deleteItem(id, createdBy);
-  
-    if (res === true) {
-      history.go(0);
-    }
+    await functions.items.deleteItem(id, createdBy);
   };
 
   return (

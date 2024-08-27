@@ -22,16 +22,24 @@ export const itemsReducer = (state = defaultState, action) => {
   case types.ADD_ITEM:
     return {
       ...state,
+      firebaseItems: [...state.firebaseItems, action.payload],
     };
 
   case types.DELETE_ITEM:
     return {
       ...state,
+      firebaseItems: state.firebaseItems.filter((item) => { return item.id !== action.payload; }),
     };
 
   case types.EDIT_ITEM:
     return {
       ...state,
+      singleItem: {
+        ...state.singleItem,
+        title: action.payload.title,
+        subtitle: action.payload.subtitle,
+        body: action.payload.body,
+      },
     };
 
   default:

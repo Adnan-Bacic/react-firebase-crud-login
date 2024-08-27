@@ -51,15 +51,17 @@ export const getSingleItem = async (id) => {
 export const addItem = async (title, subtitle, body, createdBy) => {
   try {
     const ref = firestore().collection('items');
-  
-    await ref.add({
+
+    const item = {
       title: title,
       subtitle: subtitle,
       body: body,
       createdBy: createdBy,
-    });
+    };
+  
+    await ref.add(item);
 
-    store.dispatch(actions.items.addItem());
+    store.dispatch(actions.items.addItem(item));
 
     return true;
   } catch (err) {
@@ -78,7 +80,7 @@ export const deleteItem = async (id, createdBy) => {
       
     await ref.doc(id).delete();
 
-    store.dispatch(actions.items.deleteItem());
+    store.dispatch(actions.items.deleteItem(id));
 
     return true;
   } catch (err) {
@@ -94,14 +96,16 @@ export const editItem = async (id, title, subtitle, body, createdBy) => {
     }
 
     const ref = firestore().collection('items').doc(id);
-  
-    await ref.update({
+
+    const item = {
       title: title,
       subtitle: subtitle,
       body: body,
-    });
+    };
+  
+    await ref.update(item);
 
-    store.dispatch(actions.items.editItem());
+    store.dispatch(actions.items.editItem(item));
 
     return true;
   } catch (err) {

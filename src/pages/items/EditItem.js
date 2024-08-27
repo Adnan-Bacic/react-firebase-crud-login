@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import * as functions from '../../redux/functions';
 import { Spinner, LineContainer } from '../../components';
 
@@ -16,7 +16,6 @@ const EditItem = () => {
   const items = useSelector((state) => { return state.items; });
   const user = useSelector((state) => { return state.user; });
 
-  const history = useHistory();
   const params = useParams();
 
   useEffect(() => {
@@ -46,10 +45,7 @@ const EditItem = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const res = await functions.items.editItem(params.id, specificItem.title, specificItem.subtitle, specificItem.body, user.userData.email);
-    if (res === true) {
-      history.go(0);
-    }
+    await functions.items.editItem(params.id, specificItem.title, specificItem.subtitle, specificItem.body, user.userData.email);
   };
 
   return (

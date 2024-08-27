@@ -14,20 +14,23 @@ export const getSingleItem = (item) => {
   };
 };
 
-export const addItem = () => {
+export const addItem = (item) => {
   return {
     type: types.ADD_ITEM,
+    payload: item,
   };
 };
 
-export const deleteItem = () => {
+export const deleteItem = (id) => {
   return {
     type: types.DELETE_ITEM,
+    payload: id,
   };
 };
 
-export const editItem = () => {
+export const editItem = (item) => {
   return {
     type: types.EDIT_ITEM,
+    payload: item,
   };
 };
