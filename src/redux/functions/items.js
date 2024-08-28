@@ -59,9 +59,14 @@ export const addItem = async (title, subtitle, body, createdBy) => {
       createdBy: createdBy,
     };
   
-    await ref.add(item);
+    const createdItem = await ref.add(item);
 
-    store.dispatch(actions.items.addItem(item));
+    const itemWithCreatedItemId = {
+      ...item,
+      id: createdItem.id,
+    };
+
+    store.dispatch(actions.items.addItem(itemWithCreatedItemId));
 
     return true;
   } catch (err) {
