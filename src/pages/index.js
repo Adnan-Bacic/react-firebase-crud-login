@@ -10,7 +10,6 @@ import ItemsByUser from './items/ItemsByUser';
 import StartPage from './items/StartPage';
 
 import About from './static/About';
-import Intro from './static/Intro';
 import NotFound from './static/NotFound';
 
 import Profile from './user/Profile';
@@ -20,6 +19,6 @@ import UsersItem from './user/UsersItem';
 export {
   Login, Register,
   Items, ItemsByUser, StartPage, AddItem, DeleteItem, EditItem, Item,
-  About, Intro, NotFound,
+  About, NotFound,
   Profile, Users, UsersItem,
 };
