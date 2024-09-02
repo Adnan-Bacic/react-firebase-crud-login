@@ -37,7 +37,7 @@ const Profile = () => {
       {isLoading && (
         <Spinner />
       )}
-      {user.profileData && (
+      {(user.profileData && user.userData) && (
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -47,6 +47,7 @@ const Profile = () => {
               <p>
                 {`Email: ${user.profileData.email}`}
               </p>
+              <p>{`Uid: ${user.userData.uid}`}</p>
             </div>
           </div>
         </div>
