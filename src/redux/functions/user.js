@@ -9,7 +9,6 @@ export const setUserData = (userData) => {
 
 export const registerUser = async (email, password, name) => {
   try {
-    // auth
     await auth().createUserWithEmailAndPassword(email, password);
 
     // firestore, set specific id equal to current user
