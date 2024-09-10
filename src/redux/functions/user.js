@@ -48,7 +48,6 @@ export const signOutUser = async () => {
 
 export const getProfileData = async () => {
   try {
-    // if people go to the url manually auth().currentUser is null
     const userId = auth()?.currentUser?.uid;
 
     if (!userId) {
