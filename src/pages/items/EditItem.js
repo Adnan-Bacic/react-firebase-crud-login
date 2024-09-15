@@ -97,7 +97,7 @@ const EditItem = () => {
                   <label htmlFor="body">Body</label>
                   <input type="text" name="body" value={specificItem?.body} onChange={onChangeHandler} className="form-control" id="body" />
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary btn-block">Submit</button>
                 <p className="lead">
                   <Link to="/">Go back to frontpage</Link>
                 </p>
