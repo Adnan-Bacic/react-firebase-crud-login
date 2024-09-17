@@ -44,7 +44,7 @@ const Register = () => {
               <label htmlFor="password">Password</label>
               <input type="password" name="password" onChange={onChangeHandler} className="form-control" id="password" />
             </div>
-            <button type="submit" className="btn btn-primary">Register</button>
+            <button type="submit" className="btn btn-primary btn-block">Register</button>
           </form>
         </div>
       </div>
