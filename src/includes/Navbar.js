@@ -24,7 +24,7 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item text-light my-auto mr-2">
+              <li className="nav-item text-light my-auto mr-2 font-weight-bold">
                 {user.userData && (
                   <>
                     {`Email: ${user.userData.email}`}
