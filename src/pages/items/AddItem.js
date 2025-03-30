@@ -13,11 +13,10 @@ const AddItem = () => {
 
   const user = useSelector((state) => { return state.user; });
 
-  const onChangeHandler = (text) => {
-    const { value } = text.target;
+  const onChangeHandler = (e) => {
     setValues({
       ...values,
-      [text.target.name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 

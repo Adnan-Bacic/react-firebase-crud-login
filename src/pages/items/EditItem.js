@@ -32,13 +32,9 @@ const EditItem = () => {
   }, [params.id]);
 
   const onChangeHandler = (e) => {
-    const { target } = e;
-    const { value } = target;
-    const { name } = target;
-
     setSpecificItem({
       ...specificItem,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 
