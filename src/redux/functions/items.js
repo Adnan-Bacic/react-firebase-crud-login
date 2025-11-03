@@ -48,7 +48,7 @@ export const getSingleItem = async (id) => {
   }
 };
 
-export const addItem = async (title, subtitle, body, createdBy) => {
+export const addItem = async (title, subtitle, body, createdBy, uid) => {
   try {
     const ref = firestore().collection('items');
 
@@ -57,6 +57,7 @@ export const addItem = async (title, subtitle, body, createdBy) => {
       subtitle: subtitle,
       body: body,
       createdBy: createdBy,
+      uid: uid,
     };
   
     const createdItem = await ref.add(item);

@@ -30,6 +30,33 @@ export const getAllItemsByUser = async (email) => {
   }
 };
 
+export const getAllItemsByUserUid = async (uid) => {
+  try {
+    const ref = firestore().collection('items').where('uid', '==', uid);
+
+    const data = await ref.get();
+
+    const arr = [];
+
+    if (data.empty) {
+      throw new Error('No items for this user');
+    }
+
+    data.forEach((doc) => {
+      const result = doc.data();
+      result.id = doc.id;
+      arr.push(result);
+    });
+
+    store.dispatch(actions.users.getAllItemsByUserUid(arr));
+
+    return true;
+  } catch (err) {
+    errors.setError(err);
+    return err;
+  }
+};
+
 export const getAllUsers = async () => {
   try {
     const ref = firestore().collection('users');

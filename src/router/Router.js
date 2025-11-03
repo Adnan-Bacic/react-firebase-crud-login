@@ -38,6 +38,7 @@ const Router = () => {
         <Route exact path="/users" component={Pages.Users} />
         <Route path="/user/:id" component={Pages.UsersItem} />
         <Route path="/items-by-user/:email" component={Pages.ItemsByUser} />
+        <Route path="/items-by-user-uid/:uid" component={Pages.ItemsByUserUid} />
         <Route path="*" component={Pages.NotFound} />
       </Switch>
       <Includes.Footer />

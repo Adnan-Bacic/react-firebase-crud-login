@@ -14,4 +14,5 @@ export const EDIT_ITEM = 'EDIT_ITEM';
 export const GET_PROFILE_DATA = 'GET_PROFILE_DATA';
 
 export const GET_ALL_ITEMS_BY_USER = 'GET_ALL_ITEMS_BY_USER';
+export const GET_ALL_ITEMS_BY_USER_UID = 'GET_ALL_ITEMS_BY_USER_UID';
 export const GET_ALL_USERS = 'GET_ALL_USERS';

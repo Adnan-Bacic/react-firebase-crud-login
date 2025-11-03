@@ -7,6 +7,7 @@ import EditItem from './items/EditItem';
 import Item from './items/Item';
 import Items from './items/Items';
 import ItemsByUser from './items/ItemsByUser';
+import ItemsByUserUid from './items/ItemsByUserUid';
 import StartPage from './items/StartPage';
 
 import About from './static/About';
@@ -18,7 +19,7 @@ import UsersItem from './user/UsersItem';
 
 export {
   Login, Register,
-  Items, ItemsByUser, StartPage, AddItem, DeleteItem, EditItem, Item,
+  Items, ItemsByUser, ItemsByUserUid, StartPage, AddItem, DeleteItem, EditItem, Item,
   About, NotFound,
   Profile, Users, UsersItem,
 };

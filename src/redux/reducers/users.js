@@ -13,6 +13,12 @@ export const usersReducer = (state = defaultState, action) => {
       itemsByUser: action.payloadItems,
     };
 
+  case types.GET_ALL_ITEMS_BY_USER_UID:
+    return {
+      ...state,
+      itemsByUser: action.payloadItems,
+    };
+
   case types.GET_ALL_USERS:
     return {
       ...state,

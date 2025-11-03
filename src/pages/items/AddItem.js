@@ -32,7 +32,7 @@ const AddItem = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await functions.items.addItem(values.title, values.subtitle, values.body, user.userData.email);
+    await functions.items.addItem(values.title, values.subtitle, values.body, user.userData.email, user.userData.uid);
   };
 
   return (
