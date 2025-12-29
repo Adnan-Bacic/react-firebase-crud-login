@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as functions from '../../redux/functions';
 import { Spinner } from '../../components';
 
 const AddItem = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [values, setValues] = useState({
     title: '',
     subtitle: '',
@@ -20,16 +19,6 @@ const AddItem = () => {
     });
   };
 
-  useEffect(() => {
-    const setLoading = async () => {
-      setIsLoading(true);
-      
-      setIsLoading(false);
-    };
-
-    setLoading();
-  }, []);
-
   const submitHandler = async (e) => {
     e.preventDefault();
     await functions.items.addItem(values.title, values.subtitle, values.body, user.userData.email, user.userData.uid);
@@ -37,7 +26,7 @@ const AddItem = () => {
 
   return (
     <>
-      {isLoading && !user.userData && (
+      {!user.userData && (
         <Spinner />
       )}
       {user?.userData && (
@@ -65,7 +54,7 @@ const AddItem = () => {
           </div>
         </div>
       )}
-      {!user?.userData && !isLoading && (
+      {!user?.userData && (
         <div className="container">
           <div className="row">
             <div className="col-12">
