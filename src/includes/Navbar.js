@@ -55,7 +55,7 @@ const Navbar = () => {
               {user.userData && (
                 <li className="nav-item text-light my-auto mr-2">
                   <form onSubmit={signOutHandler}>
-                    <button type="submit" className="btn btn-danger">Log out</button>
+                    <button type="submit" className="btn btn-outline-danger">Log out</button>
                   </form>
                 </li>
               )}
