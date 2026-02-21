@@ -22,6 +22,20 @@ const Router = () => {
 
   const error = useSelector((state) => { return state.error; });
 
+  const routes = [
+    { path: '/', component: Pages.StartPage, exact: true },
+    { path: '/edit/:id', component: Pages.EditItem },
+    { path: '/register', component: Pages.Register, exact: true },
+    { path: '/login', component: Pages.Login, exact: true },
+    { path: '/about', component: Pages.About, exact: true },
+    { path: '/profile', component: Pages.Profile, exact: true },
+    { path: '/users', component: Pages.Users, exact: true },
+    { path: '/user/:id', component: Pages.UsersItem },
+    { path: '/items-by-user/:email', component: Pages.ItemsByUser },
+    { path: '/items-by-user-uid/:uid', component: Pages.ItemsByUserUid },
+    { path: '*', component: Pages.NotFound },
+  ];
+
   return (
     <RouterContainer basename="/folders/react/react-firebase-crud-login/">
       <Includes.Navbar />
@@ -29,17 +43,16 @@ const Router = () => {
         <Components.Error />
       )}
       <Switch>
-        <Route exact path="/" component={Pages.StartPage} />
-        <Route path="/edit/:id" component={Pages.EditItem} />
-        <Route exact path="/register" component={Pages.Register} />
-        <Route exact path="/login" component={Pages.Login} />
-        <Route exact path="/about" component={Pages.About} />
-        <Route exact path="/profile" component={Pages.Profile} />
-        <Route exact path="/users" component={Pages.Users} />
-        <Route path="/user/:id" component={Pages.UsersItem} />
-        <Route path="/items-by-user/:email" component={Pages.ItemsByUser} />
-        <Route path="/items-by-user-uid/:uid" component={Pages.ItemsByUserUid} />
-        <Route path="*" component={Pages.NotFound} />
+        {routes.map((route) => {
+          return (
+            <Route
+              key={route.path}
+              exact={route.exact}
+              path={route.path}
+              component={route.component}
+            />
+          );
+        })}
       </Switch>
       <Includes.Footer />
     </RouterContainer>
